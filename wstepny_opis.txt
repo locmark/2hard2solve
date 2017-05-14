@@ -13,9 +13,9 @@ Ogólny opis:
 - ranking (DB)
 
 Założenia gry:
-- poziomy tak zaprojektowane że nie da się ich przejść samemu - potrzeba równo 2 graczy
-- można umrzeć (jakieś kolce czy coś), ale nie traci się nic w związu z tym (brak żyć)
-- konstrukcja poziomu może wymagać tego że jeden gracz musi umżeć, ale jest respawn
+- poziomy tak zaprojektowane, że nie da się ich przejść samemu - potrzeba równo 2 graczy
+- można umrzeć (jakieś kolce czy coś), ale nie traci się nic w związku z tym (brak żyć)
+- konstrukcja poziomu może wymagać tego, że jeden gracz musi umrzeć, ale jest respawn
 
 TODO :
 [ B - Bartek, K - Karol ]

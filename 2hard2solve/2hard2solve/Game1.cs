@@ -12,6 +12,10 @@ namespace _2hard2solve
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Physics physics;
+        Player player1;
+        Player player2;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -26,7 +30,13 @@ namespace _2hard2solve
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
+
+            physics = new Physics();
+            player1 = new Player(new Vector2(20, 50), 50, Color.Red, GraphicsDevice);
+            player2 = new Player(new Vector2(100, 50), 50, Color.Blue, GraphicsDevice);
 
             base.Initialize();
         }
@@ -62,7 +72,7 @@ namespace _2hard2solve
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            player1.Update();
 
             base.Update(gameTime);
         }
@@ -75,7 +85,12 @@ namespace _2hard2solve
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            player1.Draw(spriteBatch);
+            player2.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

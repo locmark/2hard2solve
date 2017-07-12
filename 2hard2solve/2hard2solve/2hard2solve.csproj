@@ -43,10 +43,13 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="iFloorCollidingAbitity.cs" />
+    <Compile Include="iGravityEffect.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CollisionRectangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

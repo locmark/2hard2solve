@@ -12,7 +12,6 @@ namespace _2hard2solve
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Physics physics;
         Player player1;
         Player player2;
 
@@ -34,9 +33,8 @@ namespace _2hard2solve
             graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
             graphics.ApplyChanges();
 
-            physics = new Physics();
-            player1 = new Player(new Vector2(20, 50), 50, Color.Red, GraphicsDevice);
-            player2 = new Player(new Vector2(100, 50), 50, Color.Blue, GraphicsDevice);
+            player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+            player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
             base.Initialize();
         }
@@ -72,7 +70,10 @@ namespace _2hard2solve
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player1.Update();
+            Physics.PlayerUpdate(player1);
+            Physics.PlayerUpdate(player2);
+            player1.Update(Keyboard.GetState());
+            player2.Update(Keyboard.GetState());
 
             base.Update(gameTime);
         }

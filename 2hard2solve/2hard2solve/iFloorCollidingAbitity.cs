@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace _2hard2solve
 {
-    class Constants
+    interface iFloorCollidingAbitity
     {
-        public const int screenWidth = 1600;
-        public const int screenHeight = 900;
+        void OnCollideWithFloor();
+        CollisionRectangle GetCollisionRectangle();
     }
 }

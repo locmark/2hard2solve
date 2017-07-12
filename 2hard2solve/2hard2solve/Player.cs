@@ -9,20 +9,34 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
-    class Player
+    class Player : iFloorCollidingAbitity, iGravityEffect
     {
-        private Vector2 position;
-        private int size;
+        public Vector2 position;
+        public Vector2 speed;
+        public int size;
 
         private Color color;
         private Texture2D texture;
 
-        public Player (Vector2 position, int size, Color color, GraphicsDevice graphicsDevice)
+        private Keys keyRight;
+        private Keys keyLeft;
+        private Keys keyJump;
+
+        public bool isMovingRight = false;
+        public bool isMovingLeft = false;
+        public bool isMovingUp = false;
+
+        public Player (Vector2 position, int size, Color color, Keys keyRight, Keys keyLeft, Keys keyJump, GraphicsDevice graphicsDevice)
         {
             this.position = position;
             this.size = size;
             this.color = color;
-            CreateTexture(graphicsDevice);
+            this.speed = Vector2.Zero;
+            this.keyRight = keyRight;
+            this.keyLeft = keyLeft;
+            this.keyJump = keyJump;
+
+            this.CreateTexture(graphicsDevice);
         }
 
         private void CreateTexture (GraphicsDevice graphicsDevice)
@@ -33,14 +47,36 @@ namespace _2hard2solve
             texture.SetData(colorData);
         }
 
-        public void Update()
+        public void Update (KeyboardState keyboard)
         {
-
+            CheckKeys(keyboard);
+            position += speed;
         }
 
+        private void CheckKeys (KeyboardState keyboard)
+        {
+            isMovingRight = keyboard.IsKeyDown(keyRight);
+            isMovingLeft = keyboard.IsKeyDown(keyLeft);
+            isMovingUp = keyboard.IsKeyDown(keyJump);
+        }
+
+        // gravity
+        public Vector2 GetSpeed () { return speed; }
+        public void SetSpeed (Vector2 speed) { this.speed = speed; }
+
+        // floor collision
+        public CollisionRectangle GetCollisionRectangle () { return new CollisionRectangle(position, size, size); }
+
+        public void OnCollideWithFloor()
+        {
+            this.speed.Y = 0;
+            this.position.Y = Constants.screenHeight - this.size;
+        }
+
+        // draw
         public void Draw (SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, size, size), color);
+            spriteBatch.Draw(this.texture, new Rectangle((int)this.position.X, (int)this.position.Y, this.size, this.size), this.color);
         }
     }
 }

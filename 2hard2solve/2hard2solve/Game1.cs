@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace _2hard2solve
 {
@@ -14,6 +15,8 @@ namespace _2hard2solve
 
         Player player1;
         Player player2;
+
+        List<PassiveObject> passiveObjects;
 
         public Game1()
         {
@@ -35,6 +38,10 @@ namespace _2hard2solve
 
             player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
             player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+
+            passiveObjects = new List<PassiveObject>();
+            passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight-50), 50, 50, Color.Gray, GraphicsDevice));
+            passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight - 120), 50, 50, Color.Gray, GraphicsDevice));
 
             base.Initialize();
         }
@@ -70,8 +77,8 @@ namespace _2hard2solve
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Physics.PlayerUpdate(player1);
-            Physics.PlayerUpdate(player2);
+            Physics.PlayerUpdate(player1, passiveObjects);
+            Physics.PlayerUpdate(player2, passiveObjects);
             player1.Update(Keyboard.GetState());
             player2.Update(Keyboard.GetState());
 
@@ -90,6 +97,11 @@ namespace _2hard2solve
 
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
+
+            foreach (PassiveObject _object in passiveObjects)
+            {
+                _object.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 

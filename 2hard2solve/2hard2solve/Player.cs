@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
-    class Player : iFloorCollidingAbitity, iGravityEffect
+    class Player : iFloorCollidingAbitity, iGravityEffect, iPassiveObjectCollidingAbility
     {
         public Vector2 position;
         public Vector2 speed;
@@ -25,6 +25,8 @@ namespace _2hard2solve
         public bool isMovingRight = false;
         public bool isMovingLeft = false;
         public bool isMovingUp = false;
+
+        public bool canJump = false;
 
         public Player (Vector2 position, int size, Color color, Keys keyRight, Keys keyLeft, Keys keyJump, GraphicsDevice graphicsDevice)
         {
@@ -50,7 +52,7 @@ namespace _2hard2solve
         public void Update (KeyboardState keyboard)
         {
             CheckKeys(keyboard);
-            position += speed;
+            position += speed / Constants.accuracy;
         }
 
         private void CheckKeys (KeyboardState keyboard)
@@ -58,6 +60,32 @@ namespace _2hard2solve
             isMovingRight = keyboard.IsKeyDown(keyRight);
             isMovingLeft = keyboard.IsKeyDown(keyLeft);
             isMovingUp = keyboard.IsKeyDown(keyJump);
+        }
+
+        // passive objects
+        public void OnCollideWithObjectFromTop (float position)
+        {
+            this.speed.Y *= -1;
+            this.position.Y = position;
+        }
+
+        public void OnCollideWithObjectFromRight(float position)
+        {
+            this.speed.X = 0;
+            this.position.X = position - this.size;     
+        }
+
+        public void OnCollideWithObjectFromLeft(float position)
+        {
+            this.speed.X = 0;
+            this.position.X = position;
+        }
+
+        public void OnCollideWithObjectFromBottom(float position)
+        {
+            this.speed.Y = 0;
+            this.position.Y = position - this.size;
+            this.canJump = true;
         }
 
         // gravity

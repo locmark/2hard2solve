@@ -8,6 +8,7 @@ namespace _2hard2solve
 {
     static class Constants
     {
+        public const int accuracy = 10;
         public const int screenWidth = 1600;
         public const int screenHeight = 900;
         public const int movementSpeed = 5;

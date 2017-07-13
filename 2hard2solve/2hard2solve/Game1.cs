@@ -40,8 +40,9 @@ namespace _2hard2solve
             player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
             passiveObjects = new List<PassiveObject>();
-            passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight-50), 50, 50, Color.Gray, GraphicsDevice));
-            passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight - 120), 50, 50, Color.Gray, GraphicsDevice));
+            passiveObjects.Add(new PassiveObject(new Vector2(260, Constants.screenHeight - 120), 50, 50, Color.Gray, GraphicsDevice));
+            passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, GraphicsDevice));
+            
 
             base.Initialize();
         }
@@ -77,10 +78,21 @@ namespace _2hard2solve
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Physics.PlayerUpdate(player1, passiveObjects);
-            Physics.PlayerUpdate(player2, passiveObjects);
-            player1.Update(Keyboard.GetState());
-            player2.Update(Keyboard.GetState());
+            for (int i = 0; i < Constants.accuracy; i++)
+            {
+                Physics.Gravity(player1);
+                Physics.FloorCollision(player1);
+                Physics.ControllsHandling(player1);
+                Physics.PassiveObjectsCollidingHandling(player1, passiveObjects);
+                player1.Update(Keyboard.GetState());
+
+
+                Physics.Gravity(player2);
+                Physics.FloorCollision(player2);
+                Physics.ControllsHandling(player2);
+                Physics.PassiveObjectsCollidingHandling(player2, passiveObjects);
+                player2.Update(Keyboard.GetState());
+            }
 
             base.Update(gameTime);
         }

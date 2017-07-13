@@ -9,9 +9,9 @@ namespace _2hard2solve
     interface iPassiveObjectCollidingAbility
     {
         CollisionRectangle GetCollisionRectangle();
-        void OnCollideWithObjectFromTop(float height);
+        void OnCollideWithObjectFromTop(float position);
         void OnCollideWithObjectFromRight(float position);
         void OnCollideWithObjectFromLeft(float position);
-        void OnCollideWithObjectFromBottom(float height);
+        void OnCollideWithObjectFromBottom(float position);
     }
 }

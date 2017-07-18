@@ -46,6 +46,8 @@
     <Compile Include="iFloorCollidingAbitity.cs" />
     <Compile Include="iGravityEffect.cs" />
     <Compile Include="iPassiveObjectCollidingAbility.cs" />
+    <Compile Include="iSidesCollidingAbility.cs" />
+    <Compile Include="Levels.cs" />
     <Compile Include="PassiveObject.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Player.cs" />

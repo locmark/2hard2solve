@@ -36,12 +36,19 @@ namespace _2hard2solve
             graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
             graphics.ApplyChanges();
 
+            Levels.Init(GraphicsDevice);
+            Level level = Levels.GetLevel(0);
+
             player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
             player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
-            passiveObjects = new List<PassiveObject>();
-            passiveObjects.Add(new PassiveObject(new Vector2(260, Constants.screenHeight - 120), 50, 50, Color.Gray, GraphicsDevice));
-            passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, GraphicsDevice));
+            //passiveObjects = new List<PassiveObject>();
+
+            player1.position = level.player1DefaultPosition;
+            player2.position = level.player2DefaultPosition;
+            passiveObjects = level.passiveObjects;
+            //passiveObjects.Add(new PassiveObject(new Vector2(260, Constants.screenHeight - 120), 50, 50, Color.Gray, GraphicsDevice));
+            //passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, GraphicsDevice));
             
 
             base.Initialize();
@@ -82,13 +89,19 @@ namespace _2hard2solve
             {
                 Physics.Gravity(player1);
                 Physics.FloorCollision(player1);
+                Physics.LeftSideColission(player1);
+                Physics.RightSideColission(player1);
                 Physics.ControllsHandling(player1);
                 Physics.PassiveObjectsCollidingHandling(player1, passiveObjects);
+
+                Physics.PlayersCollisions(player1, player2);
                 player1.Update(Keyboard.GetState());
 
 
                 Physics.Gravity(player2);
                 Physics.FloorCollision(player2);
+                Physics.LeftSideColission(player2);
+                Physics.RightSideColission(player2);
                 Physics.ControllsHandling(player2);
                 Physics.PassiveObjectsCollidingHandling(player2, passiveObjects);
                 player2.Update(Keyboard.GetState());

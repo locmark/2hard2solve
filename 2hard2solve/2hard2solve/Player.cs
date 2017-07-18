@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
-    class Player : iFloorCollidingAbitity, iGravityEffect, iPassiveObjectCollidingAbility
+    class Player : iFloorCollidingAbitity, iGravityEffect, iPassiveObjectCollidingAbility, iSidesCollidingAbility
     {
         public Vector2 position;
         public Vector2 speed;
@@ -83,9 +83,12 @@ namespace _2hard2solve
 
         public void OnCollideWithObjectFromBottom(float position)
         {
-            this.speed.Y = 0;
-            this.position.Y = position - this.size;
-            this.canJump = true;
+            if (this.speed.Y >= 0)
+            {
+                this.speed.Y = 0;
+                this.position.Y = position - this.size;
+                this.canJump = true;
+            }
         }
 
         // gravity
@@ -99,6 +102,22 @@ namespace _2hard2solve
         {
             this.speed.Y = 0;
             this.position.Y = Constants.screenHeight - this.size;
+        }
+
+        // sides collisions
+        public void OnCollideWithLeftSide()
+        {
+            if (this.isMovingLeft)
+            {
+                this.speed.X = 0;
+                this.position.X = 0;
+            }
+        }
+
+        public void OnCollideWithRightSide()
+        {
+            this.position.X = Constants.screenWidth - this.size;
+            this.speed.X = 0;
         }
 
         // draw

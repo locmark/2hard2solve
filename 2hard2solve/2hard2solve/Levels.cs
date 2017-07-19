@@ -27,6 +27,7 @@ namespace _2hard2solve
 
     static class Levels
     {
+        private static int level = 0;
         private static List<Level> levels;
 
         public static void Init (GraphicsDevice graphicsDevice)
@@ -39,7 +40,7 @@ namespace _2hard2solve
             };
         }
 
-        public static Level GetLevel (int level)
+        public static Level GetLevel ()
         {
             return levels[level];
         }

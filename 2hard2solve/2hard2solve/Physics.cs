@@ -83,13 +83,23 @@ namespace _2hard2solve
                 }
 
                 if (rectangle.position.Y + rectangle.height >= passiveObject.position.Y &&
-                    rectangle.position.Y + rectangle.height - 5 <= passiveObject.position.Y)
+                    rectangle.position.Y + rectangle.height - 5 <= passiveObject.position.Y &&
+                   !(rectangle.position.X + rectangle.width >= passiveObject.position.X &&          // to prevent from 
+                    rectangle.position.X + rectangle.width - 5 <= passiveObject.position.X) &&      // stopping on edges
+                   !(rectangle.position.X <= passiveObject.position.X + passiveObject.width &&      //
+                    rectangle.position.X + 5 >= passiveObject.position.X + passiveObject.width)     //
+                    )
                 {
                     _object.OnCollideWithObjectFromBottom(passiveObject.position.Y);
                 }
 
                 if (rectangle.position.Y <= passiveObject.position.Y + passiveObject.height &&
-                    rectangle.position.Y + 5 >= passiveObject.position.Y + passiveObject.height)
+                    rectangle.position.Y + 5 >= passiveObject.position.Y + passiveObject.height &&
+                   !(rectangle.position.X + rectangle.width >= passiveObject.position.X &&          // same situation
+                    rectangle.position.X + rectangle.width - 5 <= passiveObject.position.X) &&
+                   !(rectangle.position.X <= passiveObject.position.X + passiveObject.width &&
+                    rectangle.position.X + 5 >= passiveObject.position.X + passiveObject.width)
+                    )
                 {
                     _object.OnCollideWithObjectFromTop(passiveObject.position.Y + passiveObject.height);
                 }
@@ -109,7 +119,8 @@ namespace _2hard2solve
         {
             foreach (Door door in doors)
             {
-                PassiveObjectCollision(player, new PassiveObject(door.position, Constants.doorsWidth, door.height, Color.White, null));
+                if (!door.state)
+                    PassiveObjectCollision(player, new PassiveObject(door.position, Constants.doorsWidth, door.height, Color.White, null));
             }
         }
 
@@ -136,14 +147,24 @@ namespace _2hard2solve
                 }
 
                 if (rectangle1.position.Y + rectangle1.height >= rectangle2.position.Y &&
-                    rectangle1.position.Y + rectangle1.height - 5 <= rectangle2.position.Y)
+                    rectangle1.position.Y + rectangle1.height - 5 <= rectangle2.position.Y &&
+                   !(rectangle1.position.X + rectangle1.width >= rectangle2.position.X &&          // same situation
+                    rectangle1.position.X + rectangle1.width - 5 <= rectangle2.position.X) &&
+                   !(rectangle1.position.X <= rectangle1.position.X + rectangle2.width &&
+                    rectangle1.position.X + 5 >= rectangle1.position.X + rectangle2.width)
+                    )
                 {
                     player1.OnCollideWithObjectFromBottom(rectangle2.position.Y);
                     player2.OnCollideWithObjectFromTop(rectangle1.position.Y + rectangle1.height);
                 }
 
                 if (rectangle1.position.Y <= rectangle2.position.Y + rectangle2.height &&
-                    rectangle1.position.Y + 5 >= rectangle2.position.Y + rectangle2.height)
+                    rectangle1.position.Y + 5 >= rectangle2.position.Y + rectangle2.height &&
+                   !(rectangle1.position.X + rectangle1.width >= rectangle2.position.X &&          // same situation
+                    rectangle1.position.X + rectangle1.width - 5 <= rectangle2.position.X) &&
+                   !(rectangle1.position.X <= rectangle1.position.X + rectangle2.width &&
+                    rectangle1.position.X + 5 >= rectangle1.position.X + rectangle2.width)
+                    )
                 {
                     player1.OnCollideWithObjectFromTop(rectangle2.position.Y + rectangle2.height);
                     player2.OnCollideWithObjectFromBottom(rectangle1.position.Y);

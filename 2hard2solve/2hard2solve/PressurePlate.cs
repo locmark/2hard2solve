@@ -36,6 +36,7 @@ namespace _2hard2solve
             texture.SetData(colorData);
         }
 
+        public CollisionRectangle GetCollisionRectangle() { return new CollisionRectangle(position, this.width, Constants.pressurePlateHeight); }
 
         // draw
         public void Draw(SpriteBatch spriteBatch)

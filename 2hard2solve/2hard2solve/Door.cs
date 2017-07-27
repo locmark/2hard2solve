@@ -19,11 +19,15 @@ namespace _2hard2solve
         private Texture2D openTexture;
         private Texture2D closedTexture;
 
+        private bool animation = false;
+        private float animationPosition;
+
         public Door(Vector2 position, int height, Color color, GraphicsDevice graphicsDevice)
         {
             this.position = position;
             this.state = false;
             this.height = height;
+            this.animationPosition = height;
             this.color = color;
 
             this.CreateOpenTexture(graphicsDevice);
@@ -32,7 +36,27 @@ namespace _2hard2solve
 
         public void Update(List<PressurePlate> pressurePlates)
         {
+            if (pressurePlates[0].state && !this.state)
+            {
+                this.Open();
+            }
 
+            if (!pressurePlates[0].state && this.state)
+            {
+                this.Close();
+            }
+
+            if (animation)
+            {
+                if (this.state)
+                {
+                    animationPosition -= 0.1f;
+                }
+                else
+                {
+                    animationPosition += 0.1f;
+                }
+            }
         }
 
         private void CreateOpenTexture(GraphicsDevice graphicsDevice)
@@ -43,6 +67,18 @@ namespace _2hard2solve
             openTexture.SetData(colorData);
         }
 
+        private void Close()
+        {
+            this.state = false;
+            animation = true;
+        }
+
+        private void Open()
+        {
+            this.state = true;
+            animation = true;
+        }
+
         private void CreateClosedTexture(GraphicsDevice graphicsDevice)
         {
             closedTexture = new Texture2D(graphicsDevice, 1, 1);
@@ -51,18 +87,37 @@ namespace _2hard2solve
             closedTexture.SetData(colorData);
         }
 
-
         // draw
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (state == true)
+            if (animation)
             {
-                spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
+                spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)(this.position.Y), Constants.doorsWidth, this.height), this.color);
+                spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, (int)this.animationPosition), this.color);
+                
+                if ((!this.state && (animationPosition >= this.height))){
+                    animationPosition = this.height;
+                    animation = false;
+                }
+
+                if ((this.state && (animationPosition <= 0)))
+                {
+                    animationPosition = 0;
+                    animation = false;
+                }
             }
             else
             {
-                spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
+                if (state == true)
+                {
+                    spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
+                }
+                else
+                {
+                    spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
+                }
             }
+            
             
         }
 

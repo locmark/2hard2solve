@@ -117,6 +117,20 @@ namespace _2hard2solve
                     Physics.DoorsCollisions(player2, doors);
                     player2.Update(Keyboard.GetState());
 
+                    foreach (PressurePlate plate in pressurePlates)
+                    {
+                        if (player1.GetCollisionRectangle().IsCollidingWithRectangle(plate.GetCollisionRectangle()) ||
+                            player2.GetCollisionRectangle().IsCollidingWithRectangle(plate.GetCollisionRectangle())
+                            )
+                        {
+                            plate.state = true;
+                        }
+                        else
+                        {
+                            plate.state = false;
+                        }
+                    }
+
                     foreach (Door door in doors)
                     {
                         door.Update(pressurePlates);

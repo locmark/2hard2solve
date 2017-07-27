@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace _2hard2solve
 {
     enum MenuStateEnum { newGame = 0, loadLevel = 1, rank = 2, exit = 3 };
@@ -15,6 +16,7 @@ namespace _2hard2solve
     {
         public static bool isGamePaused;
         public static bool isMenuActive = true;
+        public static bool exitFlag = false;
 
         private static Color color;
         private static Texture2D texture;
@@ -78,7 +80,7 @@ namespace _2hard2solve
                     case MenuStateEnum.rank:
                         break;
                     case MenuStateEnum.exit:
-                        
+                        exitFlag = true;
                         break;
                     default:
                         break;
@@ -86,6 +88,7 @@ namespace _2hard2solve
 
             }
             oldKeyboardState = newKeyboardState;
+            
         }
     }
 

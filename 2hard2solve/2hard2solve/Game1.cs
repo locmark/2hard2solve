@@ -35,27 +35,27 @@ namespace _2hard2solve
         /// </summary>
         protected override void Initialize()
         {
-           // if (!Menu.isMenuActive)
-           // {
+            // if (!Menu.isMenuActive)
+            // {
 
 
-                Menu.isMenuActive = true;
-                Menu.isGamePaused = false;
-                graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
-                graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
-                graphics.ApplyChanges();
+            Menu.isMenuActive = true;
+            Menu.isGamePaused = false;
+            graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
+            graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
+            graphics.ApplyChanges();
 
-                Levels.Init(GraphicsDevice);
-                Level level = Levels.GetLevelData();
+            Levels.Init(GraphicsDevice);
+            Level level = Levels.GetLevelData();
 
-                player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
-                player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+            player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+            player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
-                goal = new Goal(level.goal, GraphicsDevice);
+            goal = new Goal(level.goal, GraphicsDevice);
 
-                player1.position = level.player1DefaultPosition;
-                player2.position = level.player2DefaultPosition;
-                passiveObjects = level.passiveObjects;
+            player1.position = level.player1DefaultPosition;
+            player2.position = level.player2DefaultPosition;
+            passiveObjects = level.passiveObjects;
 
 
             //}
@@ -90,7 +90,7 @@ namespace _2hard2solve
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape) || Menu.exitFlag)
                 Exit();
 
             if (!Menu.isMenuActive)
@@ -152,20 +152,22 @@ namespace _2hard2solve
 
             spriteBatch.Begin();
 
-            
-            
-                player1.Draw(spriteBatch);
-                player2.Draw(spriteBatch);
-                goal.Draw(spriteBatch);
-            Menu.Draw(spriteBatch);
 
 
-                foreach (PassiveObject _object in passiveObjects)
-                {
-                    _object.Draw(spriteBatch);
-                }
+            player1.Draw(spriteBatch);
+            player2.Draw(spriteBatch);
+            goal.Draw(spriteBatch);
 
-            
+            if (Menu.isMenuActive)
+                Menu.Draw(spriteBatch);
+
+
+            foreach (PassiveObject _object in passiveObjects)
+            {
+                _object.Draw(spriteBatch);
+            }
+
+
 
             spriteBatch.End();
 

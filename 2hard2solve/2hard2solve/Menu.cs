@@ -14,7 +14,7 @@ namespace _2hard2solve
     static class Menu
     {
         public static bool isGamePaused;
-        public static bool isMenuActive;
+        public static bool isMenuActive = true;
 
         private static Color color;
         private static Texture2D texture;
@@ -67,6 +67,22 @@ namespace _2hard2solve
             }
             else if (keyboard.IsKeyDown(Keys.Enter))
             {
+                switch (menuState)
+                {
+                    case MenuStateEnum.newGame:
+                        isMenuActive = false;
+                       
+                        break;
+                    case MenuStateEnum.loadLevel:
+                        break;
+                    case MenuStateEnum.rank:
+                        break;
+                    case MenuStateEnum.exit:
+                        
+                        break;
+                    default:
+                        break;
+                }
 
             }
             oldKeyboardState = newKeyboardState;

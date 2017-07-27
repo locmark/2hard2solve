@@ -24,7 +24,7 @@ namespace _2hard2solve
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
+
         }
 
         /// <summary>
@@ -35,22 +35,30 @@ namespace _2hard2solve
         /// </summary>
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
-            graphics.ApplyChanges();
+           // if (!Menu.isMenuActive)
+           // {
 
-            Levels.Init(GraphicsDevice);
-            Level level = Levels.GetLevelData();
 
-            player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
-            player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+                Menu.isMenuActive = true;
+                Menu.isGamePaused = false;
+                graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
+                graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
+                graphics.ApplyChanges();
 
-            goal = new Goal(level.goal, GraphicsDevice);
+                Levels.Init(GraphicsDevice);
+                Level level = Levels.GetLevelData();
 
-            player1.position = level.player1DefaultPosition;
-            player2.position = level.player2DefaultPosition;
-            passiveObjects = level.passiveObjects; 
+                player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+                player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
+                goal = new Goal(level.goal, GraphicsDevice);
+
+                player1.position = level.player1DefaultPosition;
+                player2.position = level.player2DefaultPosition;
+                passiveObjects = level.passiveObjects;
+
+
+            //}
             base.Initialize();
         }
 
@@ -85,42 +93,50 @@ namespace _2hard2solve
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            for (int i = 0; i < Constants.accuracy; i++)
+            if (!Menu.isMenuActive)
+            {
+                for (int i = 0; i < Constants.accuracy; i++)
+                {
+
+                    Physics.Gravity(player1);
+                    Physics.FloorCollision(player1);
+                    Physics.LeftSideColission(player1);
+                    Physics.RightSideColission(player1);
+                    Physics.ControllsHandling(player1);
+                    Physics.PassiveObjectsCollidingHandling(player1, passiveObjects);
+
+                    Physics.PlayersCollisions(player1, player2);
+                    player1.Update(Keyboard.GetState());
+
+
+                    Physics.Gravity(player2);
+                    Physics.FloorCollision(player2);
+                    Physics.LeftSideColission(player2);
+                    Physics.RightSideColission(player2);
+                    Physics.ControllsHandling(player2);
+                    Physics.PassiveObjectsCollidingHandling(player2, passiveObjects);
+                    player2.Update(Keyboard.GetState());
+
+                    if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
+                    {
+                        Levels.NextLevel();
+                        Level level = Levels.GetLevelData();
+
+                        player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+                        player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+
+                        goal = new Goal(level.goal, GraphicsDevice);
+
+                        player1.position = level.player1DefaultPosition;
+                        player2.position = level.player2DefaultPosition;
+                        passiveObjects = level.passiveObjects;
+                    }
+                }
+            }
+            else
             {
                 Menu.KeysHandler(Keyboard.GetState());
-                Physics.Gravity(player1);
-                Physics.FloorCollision(player1);
-                Physics.LeftSideColission(player1);
-                Physics.RightSideColission(player1);
-                Physics.ControllsHandling(player1);
-                Physics.PassiveObjectsCollidingHandling(player1, passiveObjects);
 
-                Physics.PlayersCollisions(player1, player2);
-                player1.Update(Keyboard.GetState());
-
-
-                Physics.Gravity(player2);
-                Physics.FloorCollision(player2);
-                Physics.LeftSideColission(player2);
-                Physics.RightSideColission(player2);
-                Physics.ControllsHandling(player2);
-                Physics.PassiveObjectsCollidingHandling(player2, passiveObjects);
-                player2.Update(Keyboard.GetState());
-
-                if(goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
-                {
-                    Levels.NextLevel();
-                    Level level = Levels.GetLevelData();
-
-                    player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
-                    player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
-
-                    goal = new Goal(level.goal, GraphicsDevice);
-
-                    player1.position = level.player1DefaultPosition;
-                    player2.position = level.player2DefaultPosition;
-                    passiveObjects = level.passiveObjects;
-                }
             }
 
             base.Update(gameTime);
@@ -136,20 +152,32 @@ namespace _2hard2solve
 
             spriteBatch.Begin();
 
-            player1.Draw(spriteBatch);
-            player2.Draw(spriteBatch);
-            goal.Draw(spriteBatch);
             
-           Menu.Draw(spriteBatch);
+            
+                player1.Draw(spriteBatch);
+                player2.Draw(spriteBatch);
+                goal.Draw(spriteBatch);
+            Menu.Draw(spriteBatch);
 
-            foreach (PassiveObject _object in passiveObjects)
-            {
-                _object.Draw(spriteBatch);
-            }
+
+                foreach (PassiveObject _object in passiveObjects)
+                {
+                    _object.Draw(spriteBatch);
+                }
+
+            
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        public void Quit()
+        {
+            this.Exit();
+        }
+        public Game GameHandler()
+        {
+            return this;
         }
     }
 }

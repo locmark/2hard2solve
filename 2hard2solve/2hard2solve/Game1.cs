@@ -19,6 +19,8 @@ namespace _2hard2solve
         Goal goal;
 
         List<PassiveObject> passiveObjects;
+        List<Door> doors;
+        List<PressurePlate> pressurePlates;
 
         public Game1()
         {
@@ -35,10 +37,6 @@ namespace _2hard2solve
         /// </summary>
         protected override void Initialize()
         {
-            // if (!Menu.isMenuActive)
-            // {
-
-
             Menu.isMenuActive = true;
             Menu.isGamePaused = false;
             graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
@@ -48,17 +46,18 @@ namespace _2hard2solve
             Levels.Init(GraphicsDevice);
             Level level = Levels.GetLevelData();
 
-            player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
-            player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+            player2 = new Player(new Vector2(100, 50), 40, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
             goal = new Goal(level.goal, GraphicsDevice);
 
             player1.position = level.player1DefaultPosition;
             player2.position = level.player2DefaultPosition;
+
             passiveObjects = level.passiveObjects;
+            doors = level.doors;
+            pressurePlates = level.pressurePlates;
 
-
-            //}
             base.Initialize();
         }
 
@@ -129,7 +128,10 @@ namespace _2hard2solve
 
                         player1.position = level.player1DefaultPosition;
                         player2.position = level.player2DefaultPosition;
+
                         passiveObjects = level.passiveObjects;
+                        doors = level.doors;
+                        pressurePlates = level.pressurePlates;
                     }
                 }
             }
@@ -152,14 +154,25 @@ namespace _2hard2solve
 
             spriteBatch.Begin();
 
-
-
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);
+            Menu.Draw(spriteBatch);
 
-            if (Menu.isMenuActive)
-                Menu.Draw(spriteBatch);
+            foreach (PassiveObject _object in passiveObjects)
+            {
+                _object.Draw(spriteBatch);
+            }
+
+            foreach (Door door in doors)
+            {
+                door.Draw(spriteBatch);
+            }
+
+            foreach (PressurePlate pressurePlate in pressurePlates)
+            {
+                pressurePlate.Draw(spriteBatch);
+            }
 
 
             foreach (PassiveObject _object in passiveObjects)
@@ -172,14 +185,6 @@ namespace _2hard2solve
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-        public void Quit()
-        {
-            this.Exit();
-        }
-        public Game GameHandler()
-        {
-            return this;
         }
     }
 }

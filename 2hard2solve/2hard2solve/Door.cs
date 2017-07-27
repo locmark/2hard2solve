@@ -9,23 +9,21 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
-    class Doors
+    class Door
     {
         public Vector2 position;
         public bool state;
         public int height;
-        public int width;
 
         private Color color;
         private Texture2D openTexture;
         private Texture2D closedTexture;
 
-        public Doors(Vector2 position, bool state, int height, int width, Color color, GraphicsDevice graphicsDevice)
+        public Door(Vector2 position, int height, Color color, GraphicsDevice graphicsDevice)
         {
             this.position = position;
-            this.state = state;
+            this.state = false;
             this.height = height;
-            this.width = width;
             this.color = color;
 
             this.CreateOpenTexture(graphicsDevice);
@@ -36,7 +34,7 @@ namespace _2hard2solve
         {
             openTexture = new Texture2D(graphicsDevice, 1, 1);
             Color[] colorData = new Color[1];
-            colorData[0] = color;
+            colorData[0] = color * 0.5f;
             openTexture.SetData(colorData);
         }
 
@@ -54,11 +52,11 @@ namespace _2hard2solve
         {
             if (state == true)
             {
-                spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), this.color);
+                spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
             }
             else
             {
-                spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), this.color);
+                spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
             }
             
         }

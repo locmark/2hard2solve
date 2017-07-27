@@ -23,5 +23,7 @@ namespace _2hard2solve
         public const int goalHeight = 50;
 
         public const int doorsWidth = 10;
+
+        public const int pressurePlateHeight = 5;
     }
 }

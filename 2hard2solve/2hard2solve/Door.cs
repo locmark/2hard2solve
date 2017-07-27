@@ -34,7 +34,7 @@ namespace _2hard2solve
         {
             openTexture = new Texture2D(graphicsDevice, 1, 1);
             Color[] colorData = new Color[1];
-            colorData[0] = color;
+            colorData[0] = color * 0.5f;
             openTexture.SetData(colorData);
         }
 

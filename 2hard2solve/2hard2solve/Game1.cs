@@ -171,7 +171,7 @@ namespace _2hard2solve
 
             foreach (PressurePlate pressurePlate in pressurePlates)
             {
-                //pressurePlate.Draw(spriteBatch);
+                pressurePlate.Draw(spriteBatch);
             }
 
             spriteBatch.End();

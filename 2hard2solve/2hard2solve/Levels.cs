@@ -49,7 +49,7 @@ namespace _2hard2solve
                     },
                     new List<PressurePlate>
                     {
-
+                        new PressurePlate(new Vector2(400, Constants.screenHeight - Constants.pressurePlateHeight), 50, Color.Red, graphicsDevice)
                     }
                 ),
                 new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850), 

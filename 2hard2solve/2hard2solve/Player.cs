@@ -107,17 +107,20 @@ namespace _2hard2solve
         // sides collisions
         public void OnCollideWithLeftSide()
         {
+            this.position.X = 0;
             if (this.isMovingLeft)
             {
                 this.speed.X = 0;
-                this.position.X = 0;
             }
         }
 
         public void OnCollideWithRightSide()
         {
             this.position.X = Constants.screenWidth - this.size;
-            this.speed.X = 0;
+            if (this.isMovingRight)
+            {
+                this.speed.X = 0;
+            }
         }
 
         // draw

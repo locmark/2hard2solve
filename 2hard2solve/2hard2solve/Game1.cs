@@ -16,6 +16,8 @@ namespace _2hard2solve
         Player player1;
         Player player2;
 
+        Goal goal;
+
         List<PassiveObject> passiveObjects;
 
         public Game1()
@@ -42,14 +44,11 @@ namespace _2hard2solve
             player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
             player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
-            //passiveObjects = new List<PassiveObject>();
+            goal = new Goal(level.goal, GraphicsDevice);
 
             player1.position = level.player1DefaultPosition;
             player2.position = level.player2DefaultPosition;
-            passiveObjects = level.passiveObjects;
-            //passiveObjects.Add(new PassiveObject(new Vector2(260, Constants.screenHeight - 120), 50, 50, Color.Gray, GraphicsDevice));
-            //passiveObjects.Add(new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, GraphicsDevice));
-            
+            passiveObjects = level.passiveObjects; 
 
             base.Initialize();
         }
@@ -105,6 +104,21 @@ namespace _2hard2solve
                 Physics.ControllsHandling(player2);
                 Physics.PassiveObjectsCollidingHandling(player2, passiveObjects);
                 player2.Update(Keyboard.GetState());
+
+                if(goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
+                {
+                    Levels.NextLevel();
+                    Level level = Levels.GetLevel();
+
+                    player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+                    player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+
+                    goal = new Goal(level.goal, GraphicsDevice);
+
+                    player1.position = level.player1DefaultPosition;
+                    player2.position = level.player2DefaultPosition;
+                    passiveObjects = level.passiveObjects;
+                }
             }
 
             base.Update(gameTime);
@@ -122,6 +136,7 @@ namespace _2hard2solve
 
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
+            goal.Draw(spriteBatch);
 
             foreach (PassiveObject _object in passiveObjects)
             {

@@ -25,6 +25,8 @@ namespace _2hard2solve
         }
     }
 
+
+
     static class Levels
     {
         private static int level = 0;
@@ -33,8 +35,12 @@ namespace _2hard2solve
         public static void Init (GraphicsDevice graphicsDevice)
         {
             levels = new List<Level>{
-                new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 600), new List<PassiveObject> {
-                    new PassiveObject(new Vector2(260, Constants.screenHeight - 120), 50, 50, Color.Gray, graphicsDevice),
+                new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850), new List<PassiveObject> {
+                    new PassiveObject(new Vector2(200, Constants.screenHeight - 250), 50, 250, Color.Gray, graphicsDevice),
+                    new PassiveObject(new Vector2(200, 0), 50, 550, Color.Gray, graphicsDevice)
+                }),
+                new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850), new List<PassiveObject> {
+                    new PassiveObject(new Vector2(200, Constants.screenHeight - 120), 50, 50, Color.Gray, graphicsDevice),
                     new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, graphicsDevice)
                 })
             };
@@ -43,6 +49,11 @@ namespace _2hard2solve
         public static Level GetLevel ()
         {
             return levels[level];
+        }
+
+        public static void NextLevel ()
+        {
+            level++;
         }
     }
 }

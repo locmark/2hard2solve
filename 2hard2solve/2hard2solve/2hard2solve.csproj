@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Goal.cs" />
     <Compile Include="iFloorCollidingAbitity.cs" />
     <Compile Include="iGravityEffect.cs" />
     <Compile Include="iPassiveObjectCollidingAbility.cs" />

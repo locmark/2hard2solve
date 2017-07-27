@@ -89,7 +89,7 @@ namespace _2hard2solve
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape) || Menu.exitFlag)
                 Exit();
 
             if (!Menu.isMenuActive)
@@ -180,6 +180,14 @@ namespace _2hard2solve
             {
                 pressurePlate.Draw(spriteBatch);
             }
+
+
+            foreach (PassiveObject _object in passiveObjects)
+            {
+                _object.Draw(spriteBatch);
+            }
+
+
 
             spriteBatch.End();
 

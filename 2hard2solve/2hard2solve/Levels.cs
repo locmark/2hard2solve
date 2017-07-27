@@ -15,10 +15,10 @@ namespace _2hard2solve
         public Vector2 player2DefaultPosition;
         public Vector2 goal;
         public List<PassiveObject> passiveObjects;
-        public List<Doors> doors;
+        public List<Door> doors;
         public List<PressurePlate> pressurePlates;
 
-        public Level(Vector2 player1DefaultPosition, Vector2 player2DefaultPosition, Vector2 goal, List<PassiveObject> passiveObjects, List<Doors> doors, List<PressurePlate> pressurePlates)
+        public Level(Vector2 player1DefaultPosition, Vector2 player2DefaultPosition, Vector2 goal, List<PassiveObject> passiveObjects, List<Door> doors, List<PressurePlate> pressurePlates)
         {
             this.player1DefaultPosition = player1DefaultPosition;
             this.player2DefaultPosition = player2DefaultPosition;
@@ -41,20 +41,23 @@ namespace _2hard2solve
             levels = new List<Level>{
                 new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850),
                     new List<PassiveObject> {
-                        new PassiveObject(new Vector2(200, Constants.screenHeight - 250), 50, 250, Color.Gray, graphicsDevice),
+                        new PassiveObject(new Vector2(200, Constants.screenHeight - 250), 50, 200, Color.Gray, graphicsDevice),
                         new PassiveObject(new Vector2(200, 0), 50, 550, Color.Gray, graphicsDevice)
                     },
-                    new List<Doors> {
-
+                    new List<Door> {
+                        new Door(new Vector2(200, Constants.screenHeight - 50), 50, Color.Red, graphicsDevice)
                     },
-                    new List<PressurePlate>()
+                    new List<PressurePlate>
+                    {
+
+                    }
                 ),
                 new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850), 
                     new List<PassiveObject> {
                         new PassiveObject(new Vector2(200, Constants.screenHeight - 120), 50, 50, Color.Gray, graphicsDevice),
                         new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, graphicsDevice)
                     },
-                    new List<Doors>(),
+                    new List<Door>(),
                     new List<PressurePlate>()
                 )
             };

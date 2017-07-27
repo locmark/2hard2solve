@@ -39,7 +39,7 @@ namespace _2hard2solve
             graphics.ApplyChanges();
 
             Levels.Init(GraphicsDevice);
-            Level level = Levels.GetLevel();
+            Level level = Levels.GetLevelData();
 
             player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
             player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
@@ -108,7 +108,7 @@ namespace _2hard2solve
                 if(goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
                 {
                     Levels.NextLevel();
-                    Level level = Levels.GetLevel();
+                    Level level = Levels.GetLevelData();
 
                     player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
                     player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);

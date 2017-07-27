@@ -46,14 +46,24 @@ namespace _2hard2solve
             };
         }
 
-        public static Level GetLevel ()
+        public static Level GetLevelData ()
         {
             return levels[level];
+        }
+
+        public static int GetLevel()
+        {
+            return level;
         }
 
         public static void NextLevel ()
         {
             level++;
+        }
+
+        public static void Reset()
+        {
+            level = 0;
         }
     }
 }

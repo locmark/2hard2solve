@@ -12,7 +12,7 @@ namespace _2hard2solve
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        SpriteFont font;
         Player player1;
         Player player2;
 
@@ -24,6 +24,7 @@ namespace _2hard2solve
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace _2hard2solve
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Menu.menuFont = Content.Load<SpriteFont>("MenuFont");
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,6 +87,7 @@ namespace _2hard2solve
 
             for (int i = 0; i < Constants.accuracy; i++)
             {
+                Menu.KeysHandler(Keyboard.GetState());
                 Physics.Gravity(player1);
                 Physics.FloorCollision(player1);
                 Physics.LeftSideColission(player1);
@@ -137,6 +139,8 @@ namespace _2hard2solve
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);
+            
+           Menu.Draw(spriteBatch);
 
             foreach (PassiveObject _object in passiveObjects)
             {

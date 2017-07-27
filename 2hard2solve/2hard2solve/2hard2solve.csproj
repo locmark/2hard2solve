@@ -49,6 +49,7 @@
     <Compile Include="iPassiveObjectCollidingAbility.cs" />
     <Compile Include="iSidesCollidingAbility.cs" />
     <Compile Include="Levels.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="PassiveObject.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Player.cs" />

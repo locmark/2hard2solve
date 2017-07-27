@@ -30,6 +30,11 @@ namespace _2hard2solve
             this.CreateClosedTexture(graphicsDevice);
         }
 
+        public void Update(List<PressurePlate> pressurePlates)
+        {
+
+        }
+
         private void CreateOpenTexture(GraphicsDevice graphicsDevice)
         {
             openTexture = new Texture2D(graphicsDevice, 1, 1);

@@ -24,7 +24,8 @@ namespace _2hard2solve
             this.width = width;
             this.height = height;
             this.color = color;
-            CreateTexture(graphicsDevice);
+            if (graphicsDevice != null)
+                CreateTexture(graphicsDevice);
         }
 
         public CollisionRectangle GetCollisionRectangle() { return new CollisionRectangle(position, width, height); }

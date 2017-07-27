@@ -103,10 +103,10 @@ namespace _2hard2solve
                     Physics.RightSideColission(player1);
                     Physics.ControllsHandling(player1);
                     Physics.PassiveObjectsCollidingHandling(player1, passiveObjects);
+                    Physics.DoorsCollisions(player1, doors);
 
                     Physics.PlayersCollisions(player1, player2);
                     player1.Update(Keyboard.GetState());
-
 
                     Physics.Gravity(player2);
                     Physics.FloorCollision(player2);
@@ -114,8 +114,15 @@ namespace _2hard2solve
                     Physics.RightSideColission(player2);
                     Physics.ControllsHandling(player2);
                     Physics.PassiveObjectsCollidingHandling(player2, passiveObjects);
+                    Physics.DoorsCollisions(player2, doors);
                     player2.Update(Keyboard.GetState());
 
+                    foreach (Door door in doors)
+                    {
+                        door.Update(pressurePlates);
+                    }
+
+                    // going to the next level
                     if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
                     {
                         Levels.NextLevel();

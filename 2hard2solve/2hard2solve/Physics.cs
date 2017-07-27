@@ -65,37 +65,51 @@ namespace _2hard2solve
             }
         }
 
+        private static void PassiveObjectCollision (iPassiveObjectCollidingAbility _object, PassiveObject passiveObject)
+        {
+            if (_object.GetCollisionRectangle().IsCollidingWithRectangle(passiveObject.GetCollisionRectangle()))
+            {
+                CollisionRectangle rectangle = _object.GetCollisionRectangle();
+                if (rectangle.position.X + rectangle.width >= passiveObject.position.X &&
+                    rectangle.position.X + rectangle.width - 5 <= passiveObject.position.X)
+                {
+                    _object.OnCollideWithObjectFromRight(passiveObject.position.X);
+                }
+
+                if (rectangle.position.X <= passiveObject.position.X + passiveObject.width &&
+                    rectangle.position.X + 5 >= passiveObject.position.X + passiveObject.width)
+                {
+                    _object.OnCollideWithObjectFromLeft(passiveObject.position.X + passiveObject.width);
+                }
+
+                if (rectangle.position.Y + rectangle.height >= passiveObject.position.Y &&
+                    rectangle.position.Y + rectangle.height - 5 <= passiveObject.position.Y)
+                {
+                    _object.OnCollideWithObjectFromBottom(passiveObject.position.Y);
+                }
+
+                if (rectangle.position.Y <= passiveObject.position.Y + passiveObject.height &&
+                    rectangle.position.Y + 5 >= passiveObject.position.Y + passiveObject.height)
+                {
+                    _object.OnCollideWithObjectFromTop(passiveObject.position.Y + passiveObject.height);
+                }
+            }
+        }
+
         public static void PassiveObjectsCollidingHandling (iPassiveObjectCollidingAbility _object, List<PassiveObject> passiveObjects)
         {
             foreach (PassiveObject passiveObject in passiveObjects)
             {
-                if (_object.GetCollisionRectangle().IsCollidingWithRectangle(passiveObject.GetCollisionRectangle()))
-                {
-                    CollisionRectangle rectangle = _object.GetCollisionRectangle();
-                    if (rectangle.position.X + rectangle.width >= passiveObject.position.X &&
-                        rectangle.position.X + rectangle.width - 5 <= passiveObject.position.X)
-                    {
-                        _object.OnCollideWithObjectFromRight(passiveObject.position.X);
-                    }
+                PassiveObjectCollision(_object, passiveObject);
+            }
+        }
 
-                    if (rectangle.position.X <= passiveObject.position.X + passiveObject.width &&
-                        rectangle.position.X + 5 >= passiveObject.position.X + passiveObject.width)
-                    {
-                        _object.OnCollideWithObjectFromLeft(passiveObject.position.X + passiveObject.width);
-                    }
 
-                    if (rectangle.position.Y + rectangle.height >= passiveObject.position.Y &&
-                        rectangle.position.Y + rectangle.height - 5 <= passiveObject.position.Y)
-                    {
-                        _object.OnCollideWithObjectFromBottom(passiveObject.position.Y);
-                    }
-
-                    if (rectangle.position.Y <= passiveObject.position.Y + passiveObject.height &&
-                        rectangle.position.Y + 5>= passiveObject.position.Y + passiveObject.height)
-                    {
-                        _object.OnCollideWithObjectFromTop(passiveObject.position.Y + passiveObject.height);
-                    }
-                }
+        public static void DoorsCollisions (Player player, List<Door> doors)
+        {
+            foreach (Door door in doors)
+            {
+                PassiveObjectCollision(player, new PassiveObject(door.position, Constants.doorsWidth, door.height, Color.White, null));
             }
         }
 

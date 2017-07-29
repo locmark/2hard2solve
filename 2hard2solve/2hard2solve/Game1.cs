@@ -69,8 +69,9 @@ namespace _2hard2solve
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Menu.menuFont = Content.Load<SpriteFont>("MenuFont");
-            IngameMenu.menuFont = Menu.menuFont;
+            Menu.font = Content.Load<SpriteFont>("MenuFont");
+            IngameMenu.font = Menu.font;
+            Ranking.font = IngameMenu.font;
             // TODO: use this.Content to load your game content here
         }
 
@@ -141,7 +142,8 @@ namespace _2hard2solve
                     }
 
                     // going to the next level
-                    if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
+                    if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) &&
+                        goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
                     {
                         Levels.NextLevel();
                         Level level = Levels.GetLevelData();

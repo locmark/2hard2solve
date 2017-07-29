@@ -20,7 +20,7 @@ namespace _2hard2solve
             level = 0;
         }
     }
-    
+
     public static class DB
     {
         private const string dbLocation = @"2H2S.db";
@@ -30,7 +30,7 @@ namespace _2hard2solve
             using (var db = new LiteDatabase(dbLocation))
             {
                 var rank = db.GetCollection<Rank>("rank");
-                
+
             }
         }
 
@@ -41,13 +41,24 @@ namespace _2hard2solve
                 var rankDB = db.GetCollection<Rank>("rank");
 
                 var newRank = new Rank();
-                
+
                 newRank.level = level;
                 newRank.score = score;
 
                 rankDB.Insert(newRank);
 
             }
+        }
+        public static IEnumerable<Rank> GetDatabaseContent()
+        {
+            using (var db = new LiteDatabase(dbLocation))
+            {
+                var rankDB = db.GetCollection<Rank>("rank");
+                var result = rankDB.FindAll();
+                return result;
+            }
+
+
         }
     }
 }

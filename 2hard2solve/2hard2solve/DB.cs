@@ -23,9 +23,11 @@ namespace _2hard2solve
     
     public static class DB
     {
+        private const string dbLocation = @"2H2S.db";
+
         public static void Init()
         {
-            using (var db = new LiteDatabase(@"C:\2H2S.db"))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var rank = db.GetCollection<Rank>("rank");
                 
@@ -34,7 +36,7 @@ namespace _2hard2solve
 
         public static void AddNewScore(int level, int score)
         {
-            using (var db = new LiteDatabase(@"C:\2H2S.db"))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var rankDB = db.GetCollection<Rank>("rank");
 

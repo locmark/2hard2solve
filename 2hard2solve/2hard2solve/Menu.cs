@@ -11,15 +11,18 @@ using Microsoft.Xna.Framework.Input;
 namespace _2hard2solve
 {
     enum MenuStateEnum { newGame = 0, loadLevel = 1, rank = 2, exit = 3 };
+    enum IngameMenuStateEnum { resume = 0, chooseLevel = 1, rank = 2, exit = 3 };
 
-    static class Menu
+    static class MenuFlags
     {
-        public static bool isGamePaused;
+        public static bool isGamePaused = false;
         public static bool isMenuActive = true;
         public static bool exitFlag = false;
 
-        private static Color color;
-        private static Texture2D texture;
+    }
+
+    static class Menu
+    {
 
         public static SpriteFont menuFont;
         private static KeyboardState oldKeyboardState;
@@ -49,14 +52,14 @@ namespace _2hard2solve
             else stringColor = Color.Black;
             spriteBatch.DrawString(menuFont, "Rank", new Vector2(700, 500), stringColor);
 
-            if (menuState == MenuStateEnum.exit) stringColor = Color.Chocolate;
+            if (menuState ==MenuStateEnum.exit) stringColor = Color.Chocolate;
             else stringColor = Color.Black;
-            spriteBatch.DrawString(menuFont, "Close that shit ASAP", new Vector2(700, 600), stringColor);
+            spriteBatch.DrawString(menuFont, "Close this shit ASAP", new Vector2(700, 600), stringColor);
         }
 
         public static void KeysHandler(KeyboardState keyboard)
         {
-            KeyboardState newKeyboardState = keyboard; 
+            KeyboardState newKeyboardState = keyboard;
             if (newKeyboardState.IsKeyDown(Keys.Up) && oldKeyboardState.IsKeyUp(Keys.Up))
             {
                 menuState--;
@@ -72,15 +75,15 @@ namespace _2hard2solve
                 switch (menuState)
                 {
                     case MenuStateEnum.newGame:
-                        isMenuActive = false;
-                       
+                        MenuFlags.isMenuActive = false;
+                        //DB.AddNewScore(0, 0);
                         break;
                     case MenuStateEnum.loadLevel:
                         break;
                     case MenuStateEnum.rank:
                         break;
                     case MenuStateEnum.exit:
-                        exitFlag = true;
+                        MenuFlags.exitFlag = true;
                         break;
                     default:
                         break;
@@ -88,8 +91,76 @@ namespace _2hard2solve
 
             }
             oldKeyboardState = newKeyboardState;
-            
+
         }
     }
 
+    static class IngameMenu
+    {
+        private static KeyboardState oldKeyboardState;
+        public static SpriteFont menuFont;
+
+        public static IngameMenuStateEnum IngameMenuState;
+        public static void KeysHandler(KeyboardState keyboard)
+        {
+            KeyboardState newKeyboardState = keyboard;
+
+            if (newKeyboardState.IsKeyDown(Keys.Up) && oldKeyboardState.IsKeyUp(Keys.Up))
+            {
+                IngameMenuState--;
+                if (IngameMenuState < 0) IngameMenuState = 0;
+            }
+            else if (newKeyboardState.IsKeyDown(Keys.Down) && oldKeyboardState.IsKeyUp(Keys.Down))
+            {
+                IngameMenuState++;
+                if (IngameMenuState == (IngameMenuStateEnum)4) IngameMenuState = IngameMenuStateEnum.exit;
+            }
+            else if (keyboard.IsKeyDown(Keys.Enter))
+            {
+                switch (IngameMenuState)
+                {
+                    case IngameMenuStateEnum.resume:
+                        MenuFlags.isGamePaused = false;
+                        //DB.AddNewScore(0, 0);
+                        break;
+                    case IngameMenuStateEnum.chooseLevel:
+                        break;
+                    case IngameMenuStateEnum.rank:
+                        break;
+                    case IngameMenuStateEnum.exit:
+                        MenuFlags.exitFlag = true;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            oldKeyboardState = newKeyboardState;
+
+        }
+        public static void Draw(SpriteBatch spriteBatch)
+        {
+            Color stringColor = Color.Black;
+            spriteBatch.DrawString(menuFont, "Game paused", new Vector2(700, 100), stringColor);
+            //spriteBatch.DrawString(menuFont, $"{(int)IngameMenuState}", new Vector2(1000, 100), stringColor);
+
+            if (IngameMenuState == IngameMenuStateEnum.resume) stringColor = Color.Chocolate;
+            else stringColor = Color.Black;
+            spriteBatch.DrawString(menuFont, "Resume", new Vector2(700, 300), stringColor);
+
+            if (IngameMenuState == IngameMenuStateEnum.chooseLevel) stringColor = Color.Chocolate;
+            else stringColor = Color.Black;
+            spriteBatch.DrawString(menuFont, "Choose another level", new Vector2(700, 400), stringColor);
+
+            if (IngameMenuState == IngameMenuStateEnum.rank) stringColor = Color.Chocolate;
+            else stringColor = Color.Black;
+            spriteBatch.DrawString(menuFont, "Rank", new Vector2(700, 500), stringColor);
+
+            if (IngameMenuState == IngameMenuStateEnum.exit) stringColor = Color.Chocolate;
+            else stringColor = Color.Black;
+            spriteBatch.DrawString(menuFont, "Close this shit ASAP", new Vector2(700, 600), stringColor);
+        }
+    }
 }
+
+

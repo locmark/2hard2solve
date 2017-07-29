@@ -37,8 +37,8 @@ namespace _2hard2solve
         /// </summary>
         protected override void Initialize()
         {
-            Menu.isMenuActive = true;
-            Menu.isGamePaused = false;
+            MenuFlags.isMenuActive = true;
+            MenuFlags.isGamePaused = false;
             graphics.PreferredBackBufferWidth = Constants.screenWidth;   // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = Constants.screenHeight;   // set this value to the desired height of your window
             graphics.ApplyChanges();
@@ -69,7 +69,9 @@ namespace _2hard2solve
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Menu.menuFont = Content.Load<SpriteFont>("MenuFont");
+            Menu.font = Content.Load<SpriteFont>("MenuFont");
+            IngameMenu.font = Menu.font;
+            Ranking.font = IngameMenu.font;
             // TODO: use this.Content to load your game content here
         }
 
@@ -89,11 +91,14 @@ namespace _2hard2solve
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape) || Menu.exitFlag)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || MenuFlags.exitFlag)
                 Exit();
 
-            if (!Menu.isMenuActive)
+            if (!(MenuFlags.isMenuActive || MenuFlags.isGamePaused))
             {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    MenuFlags.isGamePaused = true;
+
                 for (int i = 0; i < Constants.accuracy; i++)
                 {
 
@@ -137,7 +142,8 @@ namespace _2hard2solve
                     }
 
                     // going to the next level
-                    if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) && goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
+                    if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) &&
+                        goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
                     {
                         Levels.NextLevel();
                         Level level = Levels.GetLevelData();
@@ -158,8 +164,10 @@ namespace _2hard2solve
             }
             else
             {
-                Menu.KeysHandler(Keyboard.GetState());
-
+                if (MenuFlags.isMenuActive)
+                    Menu.KeysHandler(Keyboard.GetState());
+                else
+                    IngameMenu.KeysHandler(Keyboard.GetState());
             }
 
             base.Update(gameTime);
@@ -178,7 +186,14 @@ namespace _2hard2solve
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);
-            Menu.Draw(spriteBatch);
+
+            if (MenuFlags.isMenuActive)
+                Menu.Draw(spriteBatch);
+
+            if (MenuFlags.isGamePaused)
+                IngameMenu.Draw(spriteBatch);
+
+
 
             foreach (PassiveObject _object in passiveObjects)
             {

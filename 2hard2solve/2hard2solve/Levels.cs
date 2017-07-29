@@ -63,6 +63,11 @@ namespace _2hard2solve
             };
         }
 
+        public static int GetLevelsAmount()
+        {
+            return levels.Capacity;
+        }
+
         public static Level GetLevelData ()
         {
             return levels[level];

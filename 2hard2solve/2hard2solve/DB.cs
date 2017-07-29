@@ -20,32 +20,45 @@ namespace _2hard2solve
             level = 0;
         }
     }
-    
+
     public static class DB
     {
+        private const string dbLocation = @"2H2S.db";
+
         public static void Init()
         {
-            using (var db = new LiteDatabase(@"C:\2H2S.db"))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var rank = db.GetCollection<Rank>("rank");
-                
+
             }
         }
 
         public static void AddNewScore(int level, int score)
         {
-            using (var db = new LiteDatabase(@"C:\2H2S.db"))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var rankDB = db.GetCollection<Rank>("rank");
 
                 var newRank = new Rank();
-                
+
                 newRank.level = level;
                 newRank.score = score;
 
                 rankDB.Insert(newRank);
 
             }
+        }
+        public static IEnumerable<Rank> GetDatabaseContent()
+        {
+            using (var db = new LiteDatabase(dbLocation))
+            {
+                var rankDB = db.GetCollection<Rank>("rank");
+                var result = rankDB.FindAll();
+                return result;
+            }
+
+
         }
     }
 }

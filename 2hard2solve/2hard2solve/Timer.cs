@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
-{
+{ 
     static class Timer
     {
         public static SpriteFont font = Menu.font;
         private static float timer;
-        private static int counterSeconds, counterMinutes;
+        public static int counterSeconds, counterMinutes;
 
         public static void Tick(GameTime gameTime)
         {
@@ -30,5 +30,7 @@ namespace _2hard2solve
         {
             spriteBatch.DrawString(font, $"{counterMinutes.ToString("00")}:{counterSeconds.ToString("00")}", new Vector2(1480, 20), Color.Black);
         }
+
+       
     }
 }

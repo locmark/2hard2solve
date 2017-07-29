@@ -29,14 +29,15 @@ namespace _2hard2solve
 
             spriteBatch.DrawString(font, "Game Ranking", new Vector2(700, 100), Color.Black);
             spriteBatch.DrawString(font, "Level", new Vector2(500, 200), Color.Black);
-            spriteBatch.DrawString(font, "Score", new Vector2(1100, 200), Color.Black);
+            spriteBatch.DrawString(font, "Time", new Vector2(1100, 200), Color.Black);
+
             foreach (var item in DB.GetDatabaseContent())
             {
 
                 spriteBatch.DrawString(font, $"{item.level}", new Vector2(500, 300 + index), Color.Black);
-                spriteBatch.DrawString(font, $"{item.score}", new Vector2(1100, 300 + index), Color.Black);
+                spriteBatch.DrawString(font, $"{item.minutes.ToString("00")}:{item.seconds.ToString("00")}", new Vector2(1100, 300 + index), Color.Black);
                 index += 100;
-            }
+            }//:{item.seconds.ToString("00")}
         }
         public static void RestoreFlags()
         {

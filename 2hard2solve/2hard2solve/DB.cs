@@ -10,15 +10,18 @@ using LiteDB;
 
 namespace _2hard2solve
 {
+
     public class Rank
     {
-        public int score { get; set; }
+        public int minutes { get; set; }
+        public int seconds { get; set; }
         public int level { get; set; }
-        public Rank()
-        {
-            score = 0;
-            level = 0;
-        }
+        //public Rank()
+        //{
+        //    minutes = 0;
+        //    seconds = 0;
+        //    level = 0;
+        //}
     }
 
     public static class DB
@@ -34,16 +37,20 @@ namespace _2hard2solve
             }
         }
 
-        public static void AddNewScore(int level, int score)
+        public static void AddNewScore(int _level, int _minutes, int _seconds)
         {
             using (var db = new LiteDatabase(dbLocation))
             {
                 var rankDB = db.GetCollection<Rank>("rank");
 
-                var newRank = new Rank();
+                var newRank = new Rank
+                {
+                    level = _level,
+                    minutes = _minutes,
+                    seconds = _seconds
+                };
 
-                newRank.level = level;
-                newRank.score = score;
+
 
                 rankDB.Insert(newRank);
 

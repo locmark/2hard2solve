@@ -33,7 +33,7 @@ namespace _2hard2solve
 
     static class Levels
     {
-        private static int level = 0;
+        private static int level = 1;
         private static List<Level> levels;
 
         public static void Init (GraphicsDevice graphicsDevice)
@@ -52,20 +52,29 @@ namespace _2hard2solve
                         new PressurePlate(new Vector2(400, Constants.screenHeight - Constants.pressurePlateHeight), 50, Color.Red, graphicsDevice)
                     }
                 ),
-                new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850), 
+                new Level(new Vector2(50, 850), new Vector2(100, 850), new Vector2(1450, 850), 
                     new List<PassiveObject> {
-                        new PassiveObject(new Vector2(200, Constants.screenHeight - 120), 50, 50, Color.Gray, graphicsDevice),
-                        new PassiveObject(new Vector2(200, Constants.screenHeight - 70), 50, 50, Color.Gray, graphicsDevice)
+                        new PassiveObject(new Vector2(0, 700), 300, 50, Color.Gray, graphicsDevice),
+                        new PassiveObject(new Vector2(250, 750), 50, 100, Color.Gray, graphicsDevice),
+                        new PassiveObject(new Vector2(400, 700), 1200, 50, Color.Gray, graphicsDevice),
+                        new PassiveObject(new Vector2(400, 750), 50, 100, Color.Gray, graphicsDevice),
+                        new PassiveObject(new Vector2(1300, 750), 50, 100, Color.Gray, graphicsDevice),
                     },
-                    new List<Door>(),
-                    new List<PressurePlate>()
+                    new List<Door> {
+                        new Door(new Vector2(400, 850), 50, Color.Moccasin, (List<PressurePlate> pressurePlates) => { return pressurePlates[0].state; } ,graphicsDevice),
+                        new Door(new Vector2(1300, 850), 50, Color.Red, (List<PressurePlate> pressurePlates) => { return pressurePlates[1].state; } ,graphicsDevice)
+                    },
+                    new List<PressurePlate> {
+                        new PressurePlate(new Vector2(150, Constants.screenHeight - Constants.pressurePlateHeight), 50, Color.Moccasin, graphicsDevice),
+                        new PressurePlate(new Vector2(300, Constants.screenHeight - Constants.pressurePlateHeight), 100, Color.Red, graphicsDevice)
+                    }
                 )
             };
         }
 
         public static int GetLevelsAmount()
         {
-            return levels.Capacity;
+            return levels.Count;
         }
 
         public static Level GetLevelData ()

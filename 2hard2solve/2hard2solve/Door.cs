@@ -22,13 +22,16 @@ namespace _2hard2solve
         private bool animation = false;
         private float animationPosition;
 
-        public Door(Vector2 position, int height, Color color, GraphicsDevice graphicsDevice)
+        private Func<List<PressurePlate>, bool> checkState;
+
+        public Door(Vector2 position, int height, Color color, Func<List<PressurePlate>, bool> checkState, GraphicsDevice graphicsDevice)
         {
             this.position = position;
             this.state = false;
             this.height = height;
             this.animationPosition = height;
             this.color = color;
+            this.checkState = checkState;
 
             this.CreateOpenTexture(graphicsDevice);
             this.CreateClosedTexture(graphicsDevice);
@@ -36,12 +39,12 @@ namespace _2hard2solve
 
         public void Update(List<PressurePlate> pressurePlates)
         {
-            if (pressurePlates[0].state && !this.state)
+            if (checkState(pressurePlates) && !this.state)
             {
                 this.Open();
             }
 
-            if (!pressurePlates[0].state && this.state)
+            if (!checkState(pressurePlates) && this.state)
             {
                 this.Close();
             }

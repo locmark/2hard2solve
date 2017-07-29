@@ -91,9 +91,6 @@ namespace _2hard2solve
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || MenuFlags.exitFlag)
                 Exit();
 
@@ -102,7 +99,6 @@ namespace _2hard2solve
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Ranking.isRankingActive = false;
                 Ranking.RestoreFlags();
-                
             }
 
             if (!(MenuFlags.isMenuActive || MenuFlags.isGamePaused))
@@ -158,8 +154,14 @@ namespace _2hard2solve
                     if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) &&
                         goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
                     {
-                        Levels.NextLevel();
-                        Level level = Levels.GetLevelData();
+                        if (Levels.GetLevel() + 1 >= Levels.GetLevelsAmount())
+                        {
+                            // TODO
+                        }
+                        else
+                        {
+                            Levels.NextLevel();
+                            Level level = Levels.GetLevelData();
 
                         DB.AddNewScore(Levels.GetLevel(), Timer.counterMinutes, Timer.counterSeconds);
                        
@@ -167,14 +169,15 @@ namespace _2hard2solve
                         player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
                         player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
-                        goal = new Goal(level.goal, GraphicsDevice);
+                            goal = new Goal(level.goal, GraphicsDevice);
 
-                        player1.position = level.player1DefaultPosition;
-                        player2.position = level.player2DefaultPosition;
+                            player1.position = level.player1DefaultPosition;
+                            player2.position = level.player2DefaultPosition;
 
-                        passiveObjects = level.passiveObjects;
-                        doors = level.doors;
-                        pressurePlates = level.pressurePlates;
+                            passiveObjects = level.passiveObjects;
+                            doors = level.doors;
+                            pressurePlates = level.pressurePlates;
+                        }
                     }
                 }
             }

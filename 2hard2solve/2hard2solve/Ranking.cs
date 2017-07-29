@@ -9,9 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
+   
     static class Ranking
     {
         public static bool isRankingActive = false;
+        private static bool wasIngameMenuActive = false;
+        private static bool wasMenuActive = false;
         public static SpriteFont font;
        
         private static void Draw(SpriteBatch spriteBatch)

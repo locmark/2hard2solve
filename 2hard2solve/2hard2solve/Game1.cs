@@ -94,6 +94,14 @@ namespace _2hard2solve
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || MenuFlags.exitFlag)
                 Exit();
 
+            if (Ranking.isRankingActive)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Ranking.isRankingActive = false;
+                Ranking.RestoreFlags();
+
+            }
+
             if (!(MenuFlags.isMenuActive || MenuFlags.isGamePaused))
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -186,6 +194,9 @@ namespace _2hard2solve
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);
+
+            if (Ranking.isRankingActive)
+                Ranking.Draw(spriteBatch);
 
             if (MenuFlags.isMenuActive)
                 Menu.Draw(spriteBatch);

@@ -91,6 +91,9 @@ namespace _2hard2solve
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+            
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || MenuFlags.exitFlag)
                 Exit();
 
@@ -99,13 +102,15 @@ namespace _2hard2solve
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Ranking.isRankingActive = false;
                 Ranking.RestoreFlags();
-
+                
             }
 
             if (!(MenuFlags.isMenuActive || MenuFlags.isGamePaused))
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     MenuFlags.isGamePaused = true;
+
+                Timer.Tick(gameTime);
 
                 for (int i = 0; i < Constants.accuracy; i++)
                 {
@@ -190,7 +195,7 @@ namespace _2hard2solve
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-
+            Timer.Display(spriteBatch);
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);

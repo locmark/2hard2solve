@@ -29,7 +29,7 @@ namespace _2hard2solve
 
             spriteBatch.DrawString(font, "Game Ranking", new Vector2(700, 100), Color.Black);
             spriteBatch.DrawString(font, "Level", new Vector2(500, 200), Color.Black);
-            spriteBatch.DrawString(font, "Time", new Vector2(1100, 200), Color.Black);
+            spriteBatch.DrawString(font, "Best time", new Vector2(1100, 200), Color.Black);
 
             foreach (var item in DB.GetDatabaseContent())
             {

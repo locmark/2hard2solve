@@ -76,10 +76,14 @@ namespace _2hard2solve
                 {
                     case MenuStateEnum.newGame:
                         MenuFlags.isMenuActive = false;
-                        //DB.AddNewScore(0, 0);
+                      
                         break;
                     case MenuStateEnum.loadLevel:
-                     
+                        DB.AddNewScore(1, 2,50);
+                        DB.AddNewScore(1, 0, 59);
+                        DB.AddNewScore(3, 2, 50);
+                        DB.AddNewScore(1, 5, 50);
+                        DB.AddNewScore(2, 1, 50);
                         break;
                     case MenuStateEnum.ranking:
                         Ranking.isRankingActive = true;

@@ -15,12 +15,6 @@ namespace _2hard2solve
     {
         public int time { get; set; }
         public int level { get; set; }
-        //public Rank()
-        //{
-        //    minutes = 0;
-        //    seconds = 0;
-        //    level = 0;
-        //}
     }
 
     public static class DB
@@ -36,39 +30,24 @@ namespace _2hard2solve
             }
         }
 
-        public static void AddNewScore(int _level, int _minutes, int _seconds)
+        public static void AddNewScore(int _level, int _time)
         {
             using (var db = new LiteDatabase(dbLocation))
             {
                 int minTime;
                 var rankDB = db.GetCollection<Rank>("rank");
-                int newTime = _minutes * 60 + _seconds;
+               
+                minTime = _time;
 
                 var newRank = new Rank
                 {
                     level = _level,
-                    time = newTime
+                    time = _time
                 };
-
-                minTime = newTime;
-
-
 
                 if (rankDB.Count(item => item.level == _level) != 0)
                 {
-                    //minMinutes = searchedLevel.FirstOrDefault().minutes;
-                    //minSeconds = searchedLevel.FirstOrDefault().seconds;
-
-                    //foreach (var item in searchedLevel)
-                    //{
-                    //    if (item.minutes < minMinutes)
-                    //        minMinutes = item.minutes;
-                    //    if (item.seconds < minSeconds)
-                    //        minSeconds = item.seconds;
-                    //}
                     var sameLevelEntries = rankDB.Find(item => item.level == _level);
-
-
 
                     foreach (var item in sameLevelEntries)
                     {
@@ -76,23 +55,16 @@ namespace _2hard2solve
                             minTime = item.time;
                     }
 
-
-
-
                     foreach (var item in rankDB.FindAll())
                     {
                         rankDB.Delete(x => x.level == _level);
                     }
 
+                    newRank.time = minTime;
                 }
 
-                newRank.time = minTime;
-
-
                 rankDB.Insert(newRank);
-                //rankDB.EnsureIndex(x => x.minutes);
-                //rankDB.EnsureIndex(x => x.seconds);
-
+               
             }
         }
         public static IEnumerable<Rank> GetDatabaseContent()

@@ -13,22 +13,20 @@ namespace _2hard2solve
     {
         public static SpriteFont font = Menu.font;
         private static float timer;
-        public static int counterSeconds, counterMinutes;
+        public static int counterSeconds;
 
         public static void Tick(GameTime gameTime)
         {
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             counterSeconds += (int)timer;
             if (timer >= 1.0F) timer = 0F;
-            if(counterSeconds == 60)
-            {
-                counterSeconds = 0;
-                counterMinutes++;
-            }
+          
         }
         public static void Display(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, $"{counterMinutes.ToString("00")}:{counterSeconds.ToString("00")}", new Vector2(1480, 20), Color.Black);
+            var minutes = counterSeconds / 60;
+            var seconds = counterSeconds % 60;
+            spriteBatch.DrawString(font, $"{minutes.ToString("00")}:{seconds.ToString("00")}", new Vector2(1480, 20), Color.Black);
         }
 
        

@@ -79,13 +79,13 @@ namespace _2hard2solve
                       
                         break;
                     case MenuStateEnum.loadLevel:
-                        DB.AddNewScore(1, 0,50);
-                        DB.AddNewScore(1, 1, 50);
-                        DB.AddNewScore(1, 0, 49);
-                        DB.AddNewScore(3, 2, 50);
-                        DB.AddNewScore(1, 5, 50);
-                        DB.AddNewScore(2, 1, 50);
-                        DB.AddNewScore(3, 2, 10);
+                        //DB.AddNewScore(1, 50);
+                        //DB.AddNewScore(1, 60);
+                        //DB.AddNewScore(1, 49);
+                        //DB.AddNewScore(3, 50);
+                        //DB.AddNewScore(1, 90);
+                        //DB.AddNewScore(2, 90);
+                        //DB.AddNewScore(3, 20);
                         break;
                     case MenuStateEnum.ranking:
                         Ranking.isRankingActive = true;

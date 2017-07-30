@@ -163,7 +163,7 @@ namespace _2hard2solve
                             Levels.NextLevel();
                             Level level = Levels.GetLevelData();
 
-                        DB.AddNewScore(Levels.GetLevel(), Timer.counterMinutes, Timer.counterSeconds);
+                        DB.AddNewScore(Levels.GetLevel(),Timer.counterSeconds);
                        
 
                         player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);

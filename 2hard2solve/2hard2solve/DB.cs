@@ -10,42 +10,10 @@ using LiteDB;
 
 namespace _2hard2solve
 {
-    public static class LinqExtensions
-    {
-        public static T MinBy<T>(this IEnumerable<T> source, Func<T, IComparable> selector)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-            if (selector == null)
-            {
-                throw new ArgumentNullException(nameof(selector));
-            }
-            return source.Aggregate((min, cur) =>
-            {
-                if (min == null)
-                {
-                    return cur;
-                }
-                var minComparer = selector(min);
-                if (minComparer == null)
-                {
-                    return cur;
-                }
-                var curComparer = selector(cur);
-                if (curComparer == null)
-                {
-                    return min;
-                }
-                return minComparer.CompareTo(curComparer) > 0 ? cur : min;
-            });
-        }
-    }
+   
     public class Rank
     {
-        public int minutes { get; set; }
-        public int seconds { get; set; }
+        public int time { get; set; }
         public int level { get; set; }
         //public Rank()
         //{
@@ -72,33 +40,41 @@ namespace _2hard2solve
         {
             using (var db = new LiteDatabase(dbLocation))
             {
-                int minSeconds, minMinutes;
+                int minTime;
                 var rankDB = db.GetCollection<Rank>("rank");
-                
+                int newTime = _minutes * 60 + _seconds;
 
                 var newRank = new Rank
                 {
                     level = _level,
-                    minutes = _minutes,
-                    seconds = _seconds
+                    time = newTime
                 };
 
+                minTime = newTime;
 
-                var searchedLevel = rankDB.Find(item => item.level == _level);
 
-                if(searchedLevel != null)
+
+                if (rankDB.Count(item => item.level == _level) != 0)
                 {
-                    minMinutes = searchedLevel.FirstOrDefault().minutes;
-                    minSeconds = searchedLevel.FirstOrDefault().seconds;
+                    //minMinutes = searchedLevel.FirstOrDefault().minutes;
+                    //minSeconds = searchedLevel.FirstOrDefault().seconds;
 
-                    foreach (var item in searchedLevel)
+                    //foreach (var item in searchedLevel)
+                    //{
+                    //    if (item.minutes < minMinutes)
+                    //        minMinutes = item.minutes;
+                    //    if (item.seconds < minSeconds)
+                    //        minSeconds = item.seconds;
+                    //}
+                    var sameLevelEntries = rankDB.Find(item => item.level == _level);
+
+
+
+                    foreach (var item in sameLevelEntries)
                     {
-                        if (item.minutes < minMinutes)
-                            minMinutes = item.minutes;
-                        if (item.seconds < minSeconds)
-                            minSeconds = item.seconds;
+                        if (item.time < minTime)
+                            minTime = item.time;
                     }
-
 
 
 
@@ -107,24 +83,23 @@ namespace _2hard2solve
                     {
                         rankDB.Delete(x => x.level == _level);
                     }
-                    newRank.minutes = minMinutes;
-                    newRank.seconds = minSeconds;
+
                 }
-               
-                
+
+                newRank.time = minTime;
 
 
                 rankDB.Insert(newRank);
-                rankDB.EnsureIndex(x => x.minutes);
-                rankDB.EnsureIndex(x => x.seconds);
-                rankDB.EnsureIndex(x => x.level);
+                //rankDB.EnsureIndex(x => x.minutes);
+                //rankDB.EnsureIndex(x => x.seconds);
+
             }
         }
         public static IEnumerable<Rank> GetDatabaseContent()
         {
             using (var db = new LiteDatabase(dbLocation))
             {
-                var rankDB = db.GetCollection<Rank>("rank");       
+                var rankDB = db.GetCollection<Rank>("rank");
                 var result = rankDB.FindAll().OrderBy(item => item.level);
                 return result;
             }

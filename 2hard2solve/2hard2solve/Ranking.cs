@@ -33,9 +33,10 @@ namespace _2hard2solve
 
             foreach (var item in DB.GetDatabaseContent())
             {
-
+                var minutes = item.time / 60;
+                var seconds = item.time % 60;
                 spriteBatch.DrawString(font, $"{item.level}", new Vector2(500, 300 + index), Color.Black);
-                spriteBatch.DrawString(font, $"{item.minutes.ToString("00")}:{item.seconds.ToString("00")}", new Vector2(1100, 300 + index), Color.Black);
+                spriteBatch.DrawString(font, $"{minutes.ToString("00")}:{seconds.ToString("00")}", new Vector2(1100, 300 + index), Color.Black);
                 index += 100;
             }//:{item.seconds.ToString("00")}
         }

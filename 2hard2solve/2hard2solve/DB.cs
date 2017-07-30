@@ -72,11 +72,8 @@ namespace _2hard2solve
             using (var db = new LiteDatabase(dbLocation))
             {
                 var rankDB = db.GetCollection<Rank>("rank");
-                var result = rankDB.FindAll().OrderBy(item => item.level);
-                return result;
+                return rankDB.FindAll().OrderBy(item => item.level);
             }
-
-
         }
     }
 }

@@ -112,7 +112,7 @@ namespace _2hard2solve
         public static void KeysHandler(KeyboardState keyboard)
         {
             KeyboardState newKeyboardState = keyboard;
-
+            
             if (newKeyboardState.IsKeyDown(Keys.Up) && oldKeyboardState.IsKeyUp(Keys.Up))
             {
                 IngameMenuState--;
@@ -129,7 +129,6 @@ namespace _2hard2solve
                 {
                     case IngameMenuStateEnum.resume:
                         MenuFlags.isGamePaused = false;
-                        //DB.AddNewScore(0, 0);
                         break;
                     case IngameMenuStateEnum.chooseLevel:
                         break;

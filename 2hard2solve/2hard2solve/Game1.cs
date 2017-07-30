@@ -12,7 +12,6 @@ namespace _2hard2solve
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
         Player player1;
         Player player2;
 

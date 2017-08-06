@@ -18,6 +18,7 @@ namespace _2hard2solve
         public List<Door> doors;
         public List<PressurePlate> pressurePlates;
 
+
         public Level(Vector2 player1DefaultPosition, Vector2 player2DefaultPosition, Vector2 goal, List<PassiveObject> passiveObjects, List<Door> doors, List<PressurePlate> pressurePlates)
         {
             this.player1DefaultPosition = player1DefaultPosition;
@@ -26,6 +27,26 @@ namespace _2hard2solve
             this.passiveObjects = passiveObjects;
             this.doors = doors;
             this.pressurePlates = pressurePlates;
+           
+        }
+
+        public void SelectLevel(Player player1, Player player2, GraphicsDevice graphicsDevice)
+        {
+            Level level = Levels.GetLevelData();
+
+            DB.AddNewScore(Levels.GetLevel(), Timer.counterSeconds);
+
+            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.Space, graphicsDevice);
+            player2 = new Player(new Vector2(100, 50), 40, Color.Blue, Keys.Right, Keys.Left, Keys.Up, graphicsDevice);
+
+            goal = new Goal(level.goal, graphicsDevice);
+
+            player1.position = level.player1DefaultPosition;
+            player2.position = level.player2DefaultPosition;
+
+            passiveObjects = level.passiveObjects;
+            doors = level.doors;
+            pressurePlates = level.pressurePlates;
         }
     }
 
@@ -36,7 +57,7 @@ namespace _2hard2solve
         private static int level = 0;
         private static List<Level> levels;
 
-        public static void Init (GraphicsDevice graphicsDevice)
+        public static void Init(GraphicsDevice graphicsDevice)
         {
             levels = new List<Level>{
                 new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850),
@@ -52,7 +73,7 @@ namespace _2hard2solve
                         new PressurePlate(new Vector2(400, Constants.screenHeight - Constants.pressurePlateHeight), 50, Color.Red, graphicsDevice)
                     }
                 ),
-                new Level(new Vector2(50, 850), new Vector2(100, 850), new Vector2(1450, 850), 
+                new Level(new Vector2(50, 850), new Vector2(100, 850), new Vector2(1450, 850),
                     new List<PassiveObject> {
                         new PassiveObject(new Vector2(0, 700), 300, 50, Color.Gray, graphicsDevice),
                         new PassiveObject(new Vector2(250, 750), 50, 100, Color.Gray, graphicsDevice),
@@ -81,12 +102,14 @@ namespace _2hard2solve
             };
         }
 
+
+
         public static int GetLevelsAmount()
         {
             return levels.Count;
         }
 
-        public static Level GetLevelData ()
+        public static Level GetLevelData()
         {
             return levels[level];
         }
@@ -96,7 +119,7 @@ namespace _2hard2solve
             return level;
         }
 
-        public static void NextLevel ()
+        public static void NextLevel()
         {
             level++;
         }

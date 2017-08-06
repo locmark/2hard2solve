@@ -18,6 +18,7 @@ namespace _2hard2solve
         public static bool isGamePaused = false;
         public static bool isMenuActive = true;
         public static bool exitFlag = false;
+        public static bool winFlag = false;
 
     }
 
@@ -101,6 +102,14 @@ namespace _2hard2solve
             oldKeyboardState = newKeyboardState;
 
         }
+
+        public static void EndOfGame(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(font, "YOU WIN!", new Vector2(700, 300), Color.Black);
+            spriteBatch.DrawString(font, "Press ENTER to go to the menu", new Vector2(500, 500), Color.Black);
+           
+           
+        }
     }
 
     static class IngameMenu
@@ -150,7 +159,7 @@ namespace _2hard2solve
         {
             Color stringColor = Color.Black;
             spriteBatch.DrawString(font, "Game paused", new Vector2(700, 100), stringColor);
-            //spriteBatch.DrawString(menuFont, $"{(int)IngameMenuState}", new Vector2(1000, 100), stringColor);
+
 
             if (IngameMenuState == IngameMenuStateEnum.resume) stringColor = Color.Chocolate;
             else stringColor = Color.Black;

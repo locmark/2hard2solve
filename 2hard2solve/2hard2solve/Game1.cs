@@ -100,7 +100,7 @@ namespace _2hard2solve
                 Ranking.RestoreFlags();
             }
 
-            if (!(MenuFlags.isMenuActive || MenuFlags.isGamePaused))
+            if (!(MenuFlags.isMenuActive || MenuFlags.isGamePaused || MenuFlags.winFlag))
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     MenuFlags.isGamePaused = true;
@@ -155,7 +155,7 @@ namespace _2hard2solve
                     {
                         if (Levels.GetLevel() + 1 >= Levels.GetLevelsAmount())
                         {
-                            // TODO
+                            MenuFlags.winFlag = true;
                         }
                         else
                         {
@@ -181,10 +181,26 @@ namespace _2hard2solve
             }
             else
             {
+
+                if (MenuFlags.winFlag)
+                {
+
+                   if(Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        MenuFlags.winFlag = false;
+                        MenuFlags.isMenuActive = true;
+
+                    }
+
+
+
+                }
                 if (MenuFlags.isMenuActive)
                     Menu.KeysHandler(Keyboard.GetState());
-                else
+                else if(MenuFlags.isGamePaused)
                     IngameMenu.KeysHandler(Keyboard.GetState());
+
+
             }
 
             base.Update(gameTime);
@@ -199,7 +215,7 @@ namespace _2hard2solve
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            
+
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);
@@ -236,6 +252,8 @@ namespace _2hard2solve
             if (MenuFlags.isGamePaused)
                 IngameMenu.Draw(spriteBatch);
 
+            if (MenuFlags.winFlag)
+                Menu.EndOfGame(spriteBatch);
 
             spriteBatch.End();
 

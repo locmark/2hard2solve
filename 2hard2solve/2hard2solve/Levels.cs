@@ -67,7 +67,7 @@ namespace _2hard2solve
                         new PassiveObject(new Vector2(400, 500), 1150, 50, Color.Gray, graphicsDevice),
                         new PassiveObject(new Vector2(900, 750), 50, 100, Color.Gray, graphicsDevice),
                         new PassiveObject(new Vector2(1500, 550), 50, 150, Color.Gray, graphicsDevice),
-                        new PassiveObject(new Vector2(1500, 0), 50, 450, Color.Gray, graphicsDevice),
+                        new PassiveObject(new Vector2(1500, 80), 50, 370, Color.Gray, graphicsDevice),
                     },
                     new List<Door> {
                         new Door(new Vector2(400, 850), 50, Color.Moccasin, (List<PressurePlate> pressurePlates) => { return pressurePlates[0].state; } ,graphicsDevice),

@@ -45,7 +45,7 @@ namespace _2hard2solve
             Levels.Init(GraphicsDevice);
             Level level = Levels.GetLevelData();
 
-            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.W, GraphicsDevice);
             player2 = new Player(new Vector2(100, 50), 40, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
             goal = new Goal(level.goal, GraphicsDevice);
@@ -155,18 +155,19 @@ namespace _2hard2solve
                     {
                         if (Levels.GetLevel() + 1 >= Levels.GetLevelsAmount())
                         {
-                            DB.AddNewScore(Levels.GetLevel()+1, Timer.counterSeconds);
+                           
+                                DB.AddNewScore(Levels.GetLevel() + 1, Timer.counterSeconds);
                             MenuFlags.winFlag = true;
                         }
                         else
                         {
-                            
+
                             Levels.NextLevel();
                             Level level = Levels.GetLevelData();
+                            if (Levels.GetLevel() != 0)
+                                DB.AddNewScore(Levels.GetLevel(), Timer.counterSeconds);
 
-                            DB.AddNewScore(Levels.GetLevel(), Timer.counterSeconds);
-
-                            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+                            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.W, GraphicsDevice);
                             player2 = new Player(new Vector2(100, 50), 40, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
                             goal = new Goal(level.goal, GraphicsDevice);
@@ -188,12 +189,12 @@ namespace _2hard2solve
                 if (MenuFlags.winFlag)
                 {
 
-                   if(Keyboard.GetState().IsKeyDown(Keys.Space))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         MenuFlags.winFlag = false;
                         MenuFlags.isMenuActive = true;
                         Levels.SetLevel(-1);
-                        
+
 
                     }
 
@@ -202,7 +203,7 @@ namespace _2hard2solve
                 }
                 if (MenuFlags.isMenuActive)
                     Menu.KeysHandler(Keyboard.GetState());
-                else if(MenuFlags.isGamePaused)
+                else if (MenuFlags.isGamePaused)
                     IngameMenu.KeysHandler(Keyboard.GetState());
 
 

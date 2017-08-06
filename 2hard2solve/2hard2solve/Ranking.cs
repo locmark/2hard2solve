@@ -17,6 +17,10 @@ namespace _2hard2solve
         private static bool wasMenuActive = false;
         public static SpriteFont font;
 
+        /// <summary>
+        /// Draws the scoretable on screen.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             int index = 0;
@@ -40,6 +44,9 @@ namespace _2hard2solve
                 index += 100;
             }//:{item.seconds.ToString("00")}
         }
+        /// <summary>
+        /// Restores the flags to return to the menu.
+        /// </summary>
         public static void RestoreFlags()
         {
             MenuFlags.isGamePaused = wasIngameMenuActive;

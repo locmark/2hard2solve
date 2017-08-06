@@ -10,7 +10,8 @@ using LiteDB;
 
 namespace _2hard2solve
 {
-   
+
+ 
     public class Rank
     {
         public int time { get; set; }
@@ -21,6 +22,9 @@ namespace _2hard2solve
     {
         private const string dbLocation = @"data.db";
 
+        /// <summary>
+        /// Initializes DB.
+        /// </summary>
         public static void Init()
         {
             using (var db = new LiteDatabase(dbLocation))
@@ -30,6 +34,11 @@ namespace _2hard2solve
             }
         }
 
+        /// <summary>
+        /// Adds the new score to DB.
+        /// </summary>
+        /// <param name="_level">Level</param>
+        /// <param name="_time">Elapsed time</param>
         public static void AddNewScore(int _level, int _time)
         {
             using (var db = new LiteDatabase(dbLocation))
@@ -67,6 +76,10 @@ namespace _2hard2solve
                
             }
         }
+        /// <summary>
+        /// Gets the content of the database.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Rank> GetDatabaseContent()
         {
             using (var db = new LiteDatabase(dbLocation))

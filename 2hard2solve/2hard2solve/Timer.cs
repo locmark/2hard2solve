@@ -15,6 +15,10 @@ namespace _2hard2solve
         private static float timer;
         public static int counterSeconds;
 
+        /// <summary>
+        /// Ticks the main timer.
+        /// </summary>
+        /// <param name="gameTime">The game time.</param>
         public static void Tick(GameTime gameTime)
         {
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -22,6 +26,10 @@ namespace _2hard2solve
             if (timer >= 1.0F) timer = 0F;
           
         }
+        /// <summary>
+        /// Displays the timer on the screen.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Display(SpriteBatch spriteBatch)
         {
             var minutes = counterSeconds / 60;

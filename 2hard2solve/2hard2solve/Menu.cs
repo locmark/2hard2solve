@@ -10,9 +10,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
+    /// <summary>
+    /// State machine for menu
+    /// </summary>
     enum MenuStateEnum { newGame = 0, ranking = 1, exit = 2 };
+    /// <summary>
+    /// State machine for pause menu
+    /// </summary>
     enum IngameMenuStateEnum { resume = 0, ranking = 1, exit = 2 };
 
+    /// <summary>
+    /// Class with all flags needed by Menu section
+    /// </summary>
     static class MenuFlags
     {
         public static bool isGamePaused = false;
@@ -30,11 +39,10 @@ namespace _2hard2solve
 
         public static MenuStateEnum menuState;
 
-        public static void Init(GraphicsDevice graphicsDevice)
-        {
-            //MenuFont = Content
-
-        }
+        /// <summary>
+        /// Draws menu on the screen.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             Color stringColor = Color.Black;
@@ -54,6 +62,10 @@ namespace _2hard2solve
             spriteBatch.DrawString(font, "Close this shit ASAP", new Vector2(700, 500), stringColor);
         }
 
+        /// <summary>
+        /// Handling keys for menu navigation.
+        /// </summary>
+        /// <param name="keyboard"> Game's KeyboardState.</param>
         public static void KeysHandler(KeyboardState keyboard)
         {
             KeyboardState newKeyboardState = keyboard;
@@ -90,6 +102,10 @@ namespace _2hard2solve
 
         }
 
+        /// <summary>
+        /// Draws outro.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void EndOfGame(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, "YOU WIN!", new Vector2(700, 300), Color.Black);
@@ -100,12 +116,20 @@ namespace _2hard2solve
        
     }
 
+    /// <summary>
+    /// Class for pause menu 
+    /// </summary>
     static class IngameMenu
     {
         private static KeyboardState oldKeyboardState;
         public static SpriteFont font;
 
+        
         public static IngameMenuStateEnum IngameMenuState;
+        /// <summary>
+        /// Handling keys for pause menu navigation.
+        /// </summary>
+        /// <param name="keyboard"> Game's KeyboardState.</param>
         public static void KeysHandler(KeyboardState keyboard)
         {
             KeyboardState newKeyboardState = keyboard;
@@ -141,6 +165,10 @@ namespace _2hard2solve
             oldKeyboardState = newKeyboardState;
 
         }
+        /// <summary>
+        /// Draws actualy selected option in menu
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch.</param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             Color stringColor = Color.Black;

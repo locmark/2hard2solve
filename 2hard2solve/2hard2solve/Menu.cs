@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2hard2solve
 {
-    enum MenuStateEnum { newGame = 0, loadLevel = 1, ranking = 2, exit = 3 };
-    enum IngameMenuStateEnum { resume = 0, chooseLevel = 1, ranking = 2, exit = 3 };
+    enum MenuStateEnum { newGame = 0, ranking = 1, exit = 2 };
+    enum IngameMenuStateEnum { resume = 0, ranking = 1, exit = 2 };
 
     static class MenuFlags
     {
@@ -45,17 +45,13 @@ namespace _2hard2solve
             else stringColor = Color.Black;
             spriteBatch.DrawString(font, "New game", new Vector2(700, 300), stringColor);
 
-            if (menuState == MenuStateEnum.loadLevel) stringColor = Color.Chocolate;
-            else stringColor = Color.Black;
-            spriteBatch.DrawString(font, "Choose level", new Vector2(700, 400), stringColor);
-
             if (menuState == MenuStateEnum.ranking) stringColor = Color.Chocolate;
             else stringColor = Color.Black;
-            spriteBatch.DrawString(font, "Ranking", new Vector2(700, 500), stringColor);
+            spriteBatch.DrawString(font, "Scores", new Vector2(700, 400), stringColor);
 
             if (menuState ==MenuStateEnum.exit) stringColor = Color.Chocolate;
             else stringColor = Color.Black;
-            spriteBatch.DrawString(font, "Close this shit ASAP", new Vector2(700, 600), stringColor);
+            spriteBatch.DrawString(font, "Close this shit ASAP", new Vector2(700, 500), stringColor);
         }
 
         public static void KeysHandler(KeyboardState keyboard)
@@ -69,7 +65,7 @@ namespace _2hard2solve
             else if (newKeyboardState.IsKeyDown(Keys.Down) && oldKeyboardState.IsKeyUp(Keys.Down))
             {
                 menuState++;
-                if (menuState == (MenuStateEnum)4) menuState = MenuStateEnum.exit;
+                if (menuState == (MenuStateEnum)3) menuState = MenuStateEnum.exit;
             }
             else if (keyboard.IsKeyDown(Keys.Enter))
             {
@@ -78,15 +74,6 @@ namespace _2hard2solve
                     case MenuStateEnum.newGame:
                         MenuFlags.isMenuActive = false;
                       
-                        break;
-                    case MenuStateEnum.loadLevel:
-                        //DB.AddNewScore(1, 50);
-                        //DB.AddNewScore(1, 60);
-                        //DB.AddNewScore(1, 49);
-                        //DB.AddNewScore(3, 50);
-                        //DB.AddNewScore(1, 90);
-                        //DB.AddNewScore(2, 90);
-                        //DB.AddNewScore(3, 20);
                         break;
                     case MenuStateEnum.ranking:
                         Ranking.isRankingActive = true;
@@ -106,10 +93,11 @@ namespace _2hard2solve
         public static void EndOfGame(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, "YOU WIN!", new Vector2(700, 300), Color.Black);
-            spriteBatch.DrawString(font, "Press ENTER to go to the menu", new Vector2(500, 500), Color.Black);
+            spriteBatch.DrawString(font, "Press SPACE to go to the menu", new Vector2(500, 500), Color.Black);
            
            
         }
+       
     }
 
     static class IngameMenu
@@ -130,7 +118,7 @@ namespace _2hard2solve
             else if (newKeyboardState.IsKeyDown(Keys.Down) && oldKeyboardState.IsKeyUp(Keys.Down))
             {
                 IngameMenuState++;
-                if (IngameMenuState == (IngameMenuStateEnum)4) IngameMenuState = IngameMenuStateEnum.exit;
+                if (IngameMenuState == (IngameMenuStateEnum)3) IngameMenuState = IngameMenuStateEnum.exit;
             }
             else if (keyboard.IsKeyDown(Keys.Enter))
             {
@@ -138,8 +126,6 @@ namespace _2hard2solve
                 {
                     case IngameMenuStateEnum.resume:
                         MenuFlags.isGamePaused = false;
-                        break;
-                    case IngameMenuStateEnum.chooseLevel:
                         break;
                     case IngameMenuStateEnum.ranking:
                         Ranking.isRankingActive = true;
@@ -165,17 +151,13 @@ namespace _2hard2solve
             else stringColor = Color.Black;
             spriteBatch.DrawString(font, "Resume", new Vector2(700, 300), stringColor);
 
-            if (IngameMenuState == IngameMenuStateEnum.chooseLevel) stringColor = Color.Chocolate;
-            else stringColor = Color.Black;
-            spriteBatch.DrawString(font, "Choose another level", new Vector2(700, 400), stringColor);
-
             if (IngameMenuState == IngameMenuStateEnum.ranking) stringColor = Color.Chocolate;
             else stringColor = Color.Black;
-            spriteBatch.DrawString(font, "Ranking", new Vector2(700, 500), stringColor);
+            spriteBatch.DrawString(font, "Scores", new Vector2(700, 400), stringColor);
 
             if (IngameMenuState == IngameMenuStateEnum.exit) stringColor = Color.Chocolate;
             else stringColor = Color.Black;
-            spriteBatch.DrawString(font, "Close this shit ASAP", new Vector2(700, 600), stringColor);
+            spriteBatch.DrawString(font, "Close this shit ASAP", new Vector2(700, 500), stringColor);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace _2hard2solve
 
     public static class DB
     {
-        private const string dbLocation = @"2H2S.db";
+        private const string dbLocation = @"data.db";
 
         public static void Init()
         {

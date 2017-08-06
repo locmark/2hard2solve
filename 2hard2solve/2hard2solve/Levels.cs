@@ -30,24 +30,7 @@ namespace _2hard2solve
            
         }
 
-        public void SelectLevel(Player player1, Player player2, GraphicsDevice graphicsDevice)
-        {
-            Level level = Levels.GetLevelData();
-
-            DB.AddNewScore(Levels.GetLevel(), Timer.counterSeconds);
-
-            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.Space, graphicsDevice);
-            player2 = new Player(new Vector2(100, 50), 40, Color.Blue, Keys.Right, Keys.Left, Keys.Up, graphicsDevice);
-
-            goal = new Goal(level.goal, graphicsDevice);
-
-            player1.position = level.player1DefaultPosition;
-            player2.position = level.player2DefaultPosition;
-
-            passiveObjects = level.passiveObjects;
-            doors = level.doors;
-            pressurePlates = level.pressurePlates;
-        }
+       
     }
 
 
@@ -117,6 +100,11 @@ namespace _2hard2solve
         public static int GetLevel()
         {
             return level;
+        }
+
+        public static void SetLevel(int _level)
+        {
+           level = _level;
         }
 
         public static void NextLevel()

@@ -155,10 +155,12 @@ namespace _2hard2solve
                     {
                         if (Levels.GetLevel() + 1 >= Levels.GetLevelsAmount())
                         {
+                            DB.AddNewScore(Levels.GetLevel()+1, Timer.counterSeconds);
                             MenuFlags.winFlag = true;
                         }
                         else
                         {
+                            
                             Levels.NextLevel();
                             Level level = Levels.GetLevelData();
 
@@ -175,6 +177,7 @@ namespace _2hard2solve
                             passiveObjects = level.passiveObjects;
                             doors = level.doors;
                             pressurePlates = level.pressurePlates;
+                            Timer.counterSeconds = 0;
                         }
                     }
                 }
@@ -189,6 +192,8 @@ namespace _2hard2solve
                     {
                         MenuFlags.winFlag = false;
                         MenuFlags.isMenuActive = true;
+                        Levels.SetLevel(-1);
+                        
 
                     }
 

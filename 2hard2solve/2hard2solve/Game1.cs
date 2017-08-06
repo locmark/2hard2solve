@@ -162,11 +162,10 @@ namespace _2hard2solve
                             Levels.NextLevel();
                             Level level = Levels.GetLevelData();
 
-                        DB.AddNewScore(Levels.GetLevel(),Timer.counterSeconds);
-                       
+                            DB.AddNewScore(Levels.GetLevel(), Timer.counterSeconds);
 
-                        player1 = new Player(new Vector2(20, 50), 50, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
-                        player2 = new Player(new Vector2(100, 50), 50, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
+                            player1 = new Player(new Vector2(20, 50), 40, Color.Red, Keys.D, Keys.A, Keys.Space, GraphicsDevice);
+                            player2 = new Player(new Vector2(100, 50), 40, Color.Blue, Keys.Right, Keys.Left, Keys.Up, GraphicsDevice);
 
                             goal = new Goal(level.goal, GraphicsDevice);
 
@@ -200,21 +199,10 @@ namespace _2hard2solve
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            Timer.Display(spriteBatch);
+            
             player1.Draw(spriteBatch);
             player2.Draw(spriteBatch);
             goal.Draw(spriteBatch);
-
-            if (Ranking.isRankingActive)
-                Ranking.Draw(spriteBatch);
-
-            if (MenuFlags.isMenuActive)
-                Menu.Draw(spriteBatch);
-
-            if (MenuFlags.isGamePaused)
-                IngameMenu.Draw(spriteBatch);
-
-
 
             foreach (PassiveObject _object in passiveObjects)
             {
@@ -237,6 +225,16 @@ namespace _2hard2solve
                 _object.Draw(spriteBatch);
             }
 
+            Timer.Display(spriteBatch);
+
+            if (Ranking.isRankingActive)
+                Ranking.Draw(spriteBatch);
+
+            if (MenuFlags.isMenuActive)
+                Menu.Draw(spriteBatch);
+
+            if (MenuFlags.isGamePaused)
+                IngameMenu.Draw(spriteBatch);
 
 
             spriteBatch.End();

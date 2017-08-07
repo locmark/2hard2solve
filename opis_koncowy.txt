@@ -17,3 +17,11 @@ Menu oparte jest na maszynie stanów zbudowanej za pomocą enumów. W pętli gł
 -Ekran końcowy gry.
 Poruszając się po menu zmieniany jest kolor rysowanych napisów, co powoduje efekt wybierania poszczególnych opcji. 
 Rysowanie menu opiera się na flagach i odbywa się w głównej funkcji rysującej frameworka MonoGame.
+
+Bartek:
+-Menu
+-Ranking
+-DB
+-Timer
+
+Karol:

@@ -1,0 +1,13 @@
+2hard2solve
+Karol Kraczyna i Bartosz Cichocki
+
+Gra oparta o silnik MonoGame (Microsoft XNA), w której gracze mają za zadanie dojść do mety w najkrótszym czasie. Utrudnieniem w grze jest 
+fakt, że do przejścia poziomu potrzebni są dwaj gracze, przejście tylko jednym graczem jest niemożliwe.
+Prosta grafika została wykonana w 2D, za pomocą bezpośredniego rysowania w programie (plansza nie jest ładowana z pliku).
+
+Karol:
+
+
+Bartek:
+W celu kontroli czasu, w jakim gracz przechodzi dany poziom, wykorzystany został prosty timer programowy wykorzystujący zasoby frameworku MonoGame ( klasa GameTime). Po przejściu poziomu, aktualnie odliczony czas zostaje zapisany w bazie danych, co umożliwia późniejsze zestawienie go w rankingu.
+Baza danych oparta jest o open-sourcową bazę LiteDB (http://www.litedb.org/). Wykorzystanie gotowej biblioteki DLL uprościło część bazodanową projektu. Po ukończeniu poziomu, metody statycznej klasy DB odpytują bazę danych i wyszukują najniższego czasu, który jest przypisany do aktualnego poziomu. Dodatkowo po znalezieniu usuwane są wszystkie inne rekordy dotyczące danego poziomu, przez co w bazie danych zapisany jest zawsze najniższy czas dla danego poziomu, co wykorzystywane jest przy wyświetlaniu rankingu. Filtrowanie oraz sortowanie bazy danych wykonane jest m.in. za pomocą LINQ.

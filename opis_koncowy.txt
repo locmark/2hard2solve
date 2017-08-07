@@ -34,3 +34,6 @@ Karol:
 -struktura przchowywania map
 -projekt poziomów
 -drzwi, płytki naciskowe
+
+Link youtube:
+https://youtu.be/RKW16iNqP68

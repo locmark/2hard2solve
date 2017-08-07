@@ -1,4 +1,4 @@
-2hard2solve
+﻿2hard2solve
 Karol Kraczyna i Bartosz Cichocki
 
 Gra oparta o silnik MonoGame (Microsoft XNA), w której gracze mają za zadanie dojść do mety w najkrótszym czasie. Utrudnieniem w grze jest 
@@ -25,3 +25,12 @@ Bartek:
 -Timer
 
 Karol:
+Cała mechanika gry opiera sie na statycznej klasi fizyki. Obiekty komunikują się z nia poprzez odpowiednie interfejsy, a sama fizyka wywołuje odpowiednie funkcje w obiektach jeżeli zachodzi potrzeba.
+Dokładność obliczeń jest dodatkowo zwiększana dzięki częstrzemu wykonywaniu obliczeń.
+
+Karol:
+-fizyka
+-mechanika gry
+-struktura przchowywania map
+-projekt poziomów
+-drzwi, płytki naciskowe

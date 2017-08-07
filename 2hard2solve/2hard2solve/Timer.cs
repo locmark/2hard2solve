@@ -35,8 +35,6 @@ namespace _2hard2solve
             var minutes = counterSeconds / 60;
             var seconds = counterSeconds % 60;
             spriteBatch.DrawString(font, $"{minutes.ToString("00")}:{seconds.ToString("00")}", new Vector2(1480, 20), Color.Black);
-        }
-
-       
+        }      
     }
 }

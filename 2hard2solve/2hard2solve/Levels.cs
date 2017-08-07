@@ -25,7 +25,7 @@ namespace _2hard2solve
             this.goal = goal;
             this.passiveObjects = passiveObjects;
             this.doors = doors;
-            this.pressurePlates = pressurePlates;    
+            this.pressurePlates = pressurePlates;
         }
     }
 
@@ -47,7 +47,8 @@ namespace _2hard2solve
                         new PassiveObject(new Vector2(200, 0), 50, 550, Color.Gray, graphicsDevice)
                     },
                     new List<Door> {
-                        new Door(new Vector2(200, Constants.screenHeight - 50), 50, Color.Red, (List<PressurePlate> pressurePlates) => { return pressurePlates[0].state; } ,graphicsDevice)
+                        new Door(new Vector2(200, Constants.screenHeight - 50), 50, Color.Red,
+                            (List<PressurePlate> pressurePlates) => { return pressurePlates[0].state; } ,graphicsDevice)
                     },
                     new List<PressurePlate>
                     {
@@ -70,10 +71,14 @@ namespace _2hard2solve
                         new PassiveObject(new Vector2(1500, 80), 50, 370, Color.Gray, graphicsDevice),
                     },
                     new List<Door> {
-                        new Door(new Vector2(400, 850), 50, Color.Moccasin, (List<PressurePlate> pressurePlates) => { return pressurePlates[0].state; } ,graphicsDevice),
-                        new Door(new Vector2(1300, 850), 50, Color.Red, (List<PressurePlate> pressurePlates) => { return pressurePlates[1].state; } ,graphicsDevice),
-                        new Door(new Vector2(900, 850), 50, Color.SteelBlue, (List<PressurePlate> pressurePlates) => { return pressurePlates[2].state; } ,graphicsDevice),
-                        new Door(new Vector2(1500, 450), 50, Color.Purple, (List<PressurePlate> pressurePlates) => { return pressurePlates[3].state; } ,graphicsDevice)
+                        new Door(new Vector2(400, 850), 50, Color.Moccasin,
+                            (List<PressurePlate> pressurePlates) => { return pressurePlates[0].state; } ,graphicsDevice),
+                        new Door(new Vector2(1300, 850), 50, Color.Red,
+                            (List<PressurePlate> pressurePlates) => { return pressurePlates[1].state; } ,graphicsDevice),
+                        new Door(new Vector2(900, 850), 50, Color.SteelBlue,
+                            (List<PressurePlate> pressurePlates) => { return pressurePlates[2].state; } ,graphicsDevice),
+                        new Door(new Vector2(1500, 450), 50, Color.Purple, 
+                            (List<PressurePlate> pressurePlates) => { return pressurePlates[3].state; } ,graphicsDevice)
                     },
                     new List<PressurePlate> {
                         new PressurePlate(new Vector2(150, Constants.screenHeight - Constants.pressurePlateHeight), 50, Color.Moccasin, graphicsDevice),
@@ -104,7 +109,7 @@ namespace _2hard2solve
 
         public static void SetLevel(int level)
         {
-           Levels.level = level;
+            Levels.level = level;
         }
 
         public static void NextLevel()

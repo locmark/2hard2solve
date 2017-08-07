@@ -185,28 +185,19 @@ namespace _2hard2solve
             }
             else
             {
-
                 if (MenuFlags.winFlag)
                 {
-
                     if (Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         MenuFlags.winFlag = false;
                         MenuFlags.isMenuActive = true;
                         Levels.SetLevel(-1);
-
-
                     }
-
-
-
                 }
                 if (MenuFlags.isMenuActive)
                     Menu.KeysHandler(Keyboard.GetState());
                 else if (MenuFlags.isGamePaused)
                     IngameMenu.KeysHandler(Keyboard.GetState());
-
-
             }
 
             base.Update(gameTime);

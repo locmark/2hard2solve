@@ -11,14 +11,13 @@ namespace _2hard2solve
 {
     static class Physics
     {
+        /// <summary>
+        /// adds speed in Y caused by gravity
+        /// </summary>
+        /// <param name="_object"></param>
         public static void Gravity(iGravityEffect _object)
         {
             _object.SetSpeed(new Vector2(_object.GetSpeed().X, _object.GetSpeed().Y + 1f / Constants.accuracy));
-        }
-
-        private static void RectangleCollisions()
-        {
-
         }
 
         public static void FloorCollision(iFloorCollidingAbitity _object)
@@ -45,6 +44,11 @@ namespace _2hard2solve
             }
         }
 
+        /// <summary>
+        /// check if player can jump in current situation
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         private static bool CanPlayerJump (Player player)
         {
             if (player.GetCollisionRectangle().IsCollidingWithLine(new Vector2(0, Constants.screenHeight)))
@@ -54,6 +58,10 @@ namespace _2hard2solve
             return player.canJump;
         }
 
+        /// <summary>
+        /// change position if player press keys
+        /// </summary>
+        /// <param name="player"></param>
         public static void ControllsHandling (Player player)
         {
             if (player.isMovingRight) { player.position.X += (float) Constants.movementSpeed / Constants.accuracy; }

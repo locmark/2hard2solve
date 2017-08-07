@@ -62,7 +62,7 @@ namespace _2hard2solve
             isMovingUp = keyboard.IsKeyDown(keyJump);
         }
 
-        // passive objects
+        // passive objects collisions
         public void OnCollideWithObjectFromTop (float position)
         {
             this.speed.Y *= -1;

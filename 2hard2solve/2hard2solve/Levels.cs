@@ -18,7 +18,6 @@ namespace _2hard2solve
         public List<Door> doors;
         public List<PressurePlate> pressurePlates;
 
-
         public Level(Vector2 player1DefaultPosition, Vector2 player2DefaultPosition, Vector2 goal, List<PassiveObject> passiveObjects, List<Door> doors, List<PressurePlate> pressurePlates)
         {
             this.player1DefaultPosition = player1DefaultPosition;
@@ -26,11 +25,8 @@ namespace _2hard2solve
             this.goal = goal;
             this.passiveObjects = passiveObjects;
             this.doors = doors;
-            this.pressurePlates = pressurePlates;
-           
+            this.pressurePlates = pressurePlates;    
         }
-
-       
     }
 
 
@@ -43,6 +39,8 @@ namespace _2hard2solve
         public static void Init(GraphicsDevice graphicsDevice)
         {
             levels = new List<Level>{
+
+                // level 0
                 new Level(new Vector2(10, 10), new Vector2(10, 100), new Vector2(600, 850),
                     new List<PassiveObject> {
                         new PassiveObject(new Vector2(200, Constants.screenHeight - 250), 50, 200, Color.Gray, graphicsDevice),
@@ -56,6 +54,8 @@ namespace _2hard2solve
                         new PressurePlate(new Vector2(400, Constants.screenHeight - Constants.pressurePlateHeight), 50, Color.Red, graphicsDevice)
                     }
                 ),
+
+                // level 1
                 new Level(new Vector2(50, 850), new Vector2(100, 850), new Vector2(1450, 850),
                     new List<PassiveObject> {
                         new PassiveObject(new Vector2(0, 700), 300, 50, Color.Gray, graphicsDevice),
@@ -102,9 +102,9 @@ namespace _2hard2solve
             return level;
         }
 
-        public static void SetLevel(int _level)
+        public static void SetLevel(int level)
         {
-           level = _level;
+           Levels.level = level;
         }
 
         public static void NextLevel()

@@ -37,6 +37,11 @@ namespace _2hard2solve
             this.CreateClosedTexture(graphicsDevice);
         }
 
+        /// <summary>
+        /// checking if pressure plate is activated
+        /// handling animation
+        /// </summary>
+        /// <param name="pressurePlates"></param>
         public void Update(List<PressurePlate> pressurePlates)
         {
             if (checkState(pressurePlates) && !this.state)
@@ -62,12 +67,28 @@ namespace _2hard2solve
             }
         }
 
+        /// <summary>
+        /// texture for opened door
+        /// </summary>
+        /// <param name="graphicsDevice"></param>
         private void CreateOpenTexture(GraphicsDevice graphicsDevice)
         {
             openTexture = new Texture2D(graphicsDevice, 1, 1);
             Color[] colorData = new Color[1];
             colorData[0] = color * 0.5f;
             openTexture.SetData(colorData);
+        }
+
+        /// <summary>
+        /// texture for closed door
+        /// </summary>
+        /// <param name="graphicsDevice"></param>
+        private void CreateClosedTexture(GraphicsDevice graphicsDevice)
+        {
+            closedTexture = new Texture2D(graphicsDevice, 1, 1);
+            Color[] colorData = new Color[1];
+            colorData[0] = color;
+            closedTexture.SetData(colorData);
         }
 
         private void Close()
@@ -82,14 +103,7 @@ namespace _2hard2solve
             animation = true;
         }
 
-        private void CreateClosedTexture(GraphicsDevice graphicsDevice)
-        {
-            closedTexture = new Texture2D(graphicsDevice, 1, 1);
-            Color[] colorData = new Color[1];
-            colorData[0] = color;
-            closedTexture.SetData(colorData);
-        }
-
+        
         // draw
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -98,13 +112,15 @@ namespace _2hard2solve
                 spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)(this.position.Y), Constants.doorsWidth, this.height), this.color);
                 spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, (int)this.animationPosition), this.color);
                 
-                if ((!this.state && (animationPosition >= this.height))){
+                if (!this.state && (animationPosition >= this.height)){
+                    // finish animation of closing door
                     animationPosition = this.height;
                     animation = false;
                 }
 
-                if ((this.state && (animationPosition <= 0)))
+                if (this.state && (animationPosition <= 0))
                 {
+                    // finish animation of opening door
                     animationPosition = 0;
                     animation = false;
                 }
@@ -113,10 +129,12 @@ namespace _2hard2solve
             {
                 if (state == true)
                 {
+                    // opened door
                     spriteBatch.Draw(this.openTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
                 }
                 else
                 {
+                    // closed door
                     spriteBatch.Draw(this.closedTexture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.doorsWidth, this.height), this.color);
                 }
             }

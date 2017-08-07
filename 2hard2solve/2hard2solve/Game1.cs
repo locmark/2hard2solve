@@ -131,6 +131,7 @@ namespace _2hard2solve
 
                     foreach (PressurePlate plate in pressurePlates)
                     {
+                        // if any player is colliding with pressure plate
                         if (player1.GetCollisionRectangle().IsCollidingWithRectangle(plate.GetCollisionRectangle()) ||
                             player2.GetCollisionRectangle().IsCollidingWithRectangle(plate.GetCollisionRectangle())
                             )
@@ -149,18 +150,19 @@ namespace _2hard2solve
                     }
 
                     // going to the next level
+                    // if both players are colliding with finish block
                     if (goal.GetCollisionRectangle().IsCollidingWithRectangle(player1.GetCollisionRectangle()) &&
                         goal.GetCollisionRectangle().IsCollidingWithRectangle(player2.GetCollisionRectangle()))
                     {
+                        // if it was the last level
                         if (Levels.GetLevel() + 1 >= Levels.GetLevelsAmount())
                         {
-                           
-                                DB.AddNewScore(Levels.GetLevel() + 1, Timer.counterSeconds);
+                            DB.AddNewScore(Levels.GetLevel() + 1, Timer.counterSeconds);
                             MenuFlags.winFlag = true;
                         }
                         else
                         {
-
+                            // load next level
                             Levels.NextLevel();
                             Level level = Levels.GetLevelData();
                             if (Levels.GetLevel() != 0)
@@ -182,7 +184,7 @@ namespace _2hard2solve
                     }
                 }
             }
-            else
+            else // paused game
             {
                 if (MenuFlags.winFlag)
                 {
@@ -193,6 +195,7 @@ namespace _2hard2solve
                         Levels.SetLevel(-1);
                     }
                 }
+
                 if (MenuFlags.isMenuActive)
                     Menu.KeysHandler(Keyboard.GetState());
                 else if (MenuFlags.isGamePaused)

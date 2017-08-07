@@ -36,9 +36,5 @@ namespace _2hard2solve
             spriteBatch.Draw(this.texture, new Rectangle((int)this.position.X, (int)this.position.Y, Constants.goalWidth, Constants.goalHeight), Color.Green * 0.5f);
         }
 
-        public static implicit operator Vector2(Goal v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

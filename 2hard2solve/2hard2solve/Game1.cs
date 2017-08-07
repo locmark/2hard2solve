@@ -25,7 +25,6 @@ namespace _2hard2solve
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
         }
 
         /// <summary>
